@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="scala" name="Scala">
+      <configuration>
+        <option name="compilerLibraryLevel" value="Project" />
+        <option name="compilerLibraryName" value="SBT: scala:2.10.3" />
+        <option name="compilerOptions" value="-language:postfixOps -feature -encoding utf8" />
+        <option name="deprecationWarnings" value="true" />
+        <option name="fsc" value="true" />
+        <option name="pluginPaths">
+          <array>
+            <option value="$USER_HOME$/.ivy2/cache/org.scalamacros/paradise_2.10.3/jars/paradise_2.10.3-2.0.0.jar" />
+          </array>
+        </option>
+        <option name="uncheckedWarnings" value="true" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../core/target/scala-2.10/classes" />
+    <output-test url="file://$MODULE_DIR$/../core/target/scala-2.10/test-classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../core">
+      <sourceFolder url="file://$MODULE_DIR$/../core/src/main/scala" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../core/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../core/src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../core/src/test/scala" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../core/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../core/src/test/resources" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../core/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="SBT: com.typesafe.slick:slick_2.10:2.0.0" level="project" />
+    <orderEntry type="library" name="SBT: org.slf4j:slf4j-api:1.6.4" level="project" />
+    <orderEntry type="library" name="SBT: org.slf4j:slf4j-simple:1.6.4" level="project" />
+    <orderEntry type="library" name="SBT: joda-time:joda-time:2.3" level="project" />
+    <orderEntry type="library" name="SBT: org.joda:joda-convert:1.5" level="project" />
+    <orderEntry type="library" name="SBT: com.github.tototoshi:slick-joda-mapper_2.10:1.0.1" level="project" />
+    <orderEntry type="library" name="SBT: org.postgresql:postgresql:9.3-1100-jdbc4" level="project" />
+    <orderEntry type="library" name="SBT: org.json4s:json4s-native_2.10:3.2.4" level="project" />
+    <orderEntry type="library" name="SBT: org.json4s:json4s-core_2.10:3.2.4" level="project" />
+    <orderEntry type="library" name="SBT: org.json4s:json4s-ast_2.10:3.2.4" level="project" />
+    <orderEntry type="library" name="SBT: com.thoughtworks.paranamer:paranamer:2.5.2" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scalap:2.10.0" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-compiler:2.10.0" level="project" />
+    <orderEntry type="library" name="SBT: org.scalaz:scalaz-core_2.10:7.1.0-M7" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.10.4" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.10.3" level="project" />
+    <orderEntry type="library" name="SBT: org.scalamacros:quasiquotes_2.10:2.0.0" level="project" />
+    <orderEntry type="library" name="SBT: io.spray:spray-servlet:1.3.1" level="project" />
+    <orderEntry type="library" name="SBT: io.spray:spray-http:1.3.1" level="project" />
+    <orderEntry type="library" name="SBT: io.spray:spray-util:1.3.1" level="project" />
+    <orderEntry type="library" name="SBT: org.parboiled:parboiled-scala_2.10:1.1.6" level="project" />
+    <orderEntry type="library" name="SBT: org.parboiled:parboiled-core:1.1.6" level="project" />
+    <orderEntry type="library" name="SBT: io.spray:spray-routing:1.3.1" level="project" />
+    <orderEntry type="library" name="SBT: io.spray:spray-httpx:1.3.1" level="project" />
+    <orderEntry type="library" name="SBT: org.jvnet.mimepull:mimepull:1.9.4" level="project" />
+    <orderEntry type="library" name="SBT: com.chuusai:shapeless_2.10:1.2.4" level="project" />
+    <orderEntry type="library" name="SBT: com.typesafe.akka:akka-actor_2.10:2.3.0" level="project" />
+    <orderEntry type="library" name="SBT: com.typesafe:config:1.2.0" level="project" />
+    <orderEntry type="library" name="SBT: com.github.t3hnar:scala-bcrypt_2.10:2.4" level="project" />
+    <orderEntry type="library" name="SBT: org.mindrot:jbcrypt:0.3m" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: io.spray:spray-testkit:1.3.1:test" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: com.typesafe.akka:akka-testkit_2.10:2.3.0:test" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.specs2:specs2_2.10:2.2.3:test" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scalaz:scalaz-concurrent_2.10:7.0.2:test" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scalaz:scalaz-effect_2.10:7.0.2:test" level="project" />
+    <orderEntry type="module" module-name="macros" exported="" />
+  </component>
+</module>
+

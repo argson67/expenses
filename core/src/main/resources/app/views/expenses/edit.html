@@ -1,0 +1,82 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{state.addOrEdit}} {{recurring()}} expense</h3>
+  </div>
+
+  <div class="panel-body">
+    <form class="form-horizontal" role="form" name="expenseForm" novalidate ng-submit="submit()" ng-show="expense.owner">
+      <fieldset ng-disabled="state.errLoading">
+
+        <div class="form-group" ng-show="expense.owner">
+          <label for="owner" class="col-sm-2 control-label">Owner</label>
+          <div class="col-sm-10" id="owner">
+            <b>{{expense.owner.name}}</b>
+          </div>
+        </div>
+
+        <div class="form-group" ng-show="expense.date">
+          <label for="date" class="col-sm-2 control-label">Date</label>
+          <div class="col-sm-10" id="date">
+            <b>{{expense.date}}</b>
+          </div>
+        </div>
+
+        <div class="form-group" ng-show="expense.recurring">
+          <label for="frequency" class="col-sm-2 control-label">Frequency</label>
+          <div class="col-sm-10" id="frequency">
+            every
+            <input placeholder="n" size="3" type="number" ng-model="expense.frequencyNum">
+            <select class="input-small" ng-model="expense.frequencyUnit">
+              <option value="0">Days</option>
+              <option value="1">Weeks</option>
+              <option value="2">Months</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="amount" class="col-sm-2 control-label">Amount</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="amount" min="0" required type="number" ng-model="expense.amount">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="beneficiaries" class="col-sm-2 control-label">
+            Beneficiaries
+          </label>
+          <div class="col-sm-10" id="beneficiaries">
+            <label class="checkbox inline" ng-repeat="ben in expense.beneficiaries">
+              <input value="{{ben.id}}" type="checkbox" ng-model="ben.selected">{{ben.name}}
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reason" class="col-sm-2 control-label">
+            Reason
+          </label>
+          <div class="col-sm-10">
+            <input class="form-control" id="reason" required type="text" ng-model="expense.description">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="comment" class="col-sm-2 control-label">
+            Comment
+          </label>
+          <div class="col-sm-10">
+            <textarea class="form-control" id="comment" ng-model="expense.comment"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-10">
+            <button class="btn btn-lg btn-primary text-center" type="submit">Submit</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

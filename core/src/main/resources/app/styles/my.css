@@ -1,0 +1,11 @@
+table {
+  table-layout: fixed;
+}
+
+/*table th, table td {
+  overflow: hidden;
+}*/
+
+.iconCol {
+  width: 25px;
+}

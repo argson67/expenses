@@ -1,0 +1,133 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>BSoviet Expenses</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-additions/dist/bootstrap-additions.min.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="bower_components/bootstrap-datepicker/css/datepicker.css"> -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/my.css">
+
+    <!-- endbuild -->
+  </head>
+  <body ng-app="moneyApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div ng-controller="ModalCtrl">
+      <div class="modal fade" id="bsModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" ng-click="modal.cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+              <p>{{modal.msg}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" ng-click="modal.cancel()">No</button>
+              <button type="button" class="btn btn-primary" ng-click="modal.submit()">Yes</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </div>
+
+    <div class="container" ng-controller="MenuCtrl">
+      <div class="header">
+        <!-- Pre-login stuff -->
+        <ul class="nav nav-pills pull-right" bs-navbar ng-hide="user.id">
+          <li data-match-route="/login"><a ng-href="#/login">Login</a></li>
+          <li data-match-route="/register"><a ng-href="#/register">Register</a></li>
+        </ul>
+        <!-- Post-login stuff -->
+        <ul class="nav nav-pills pull-right" bs-navbar ng-show="user.id">
+          <li data-match-route="/expenses" class="dropdown">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">Expenses <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a ng-href="#/expenses/view">View</a></li>
+              <li><a ng-href="#/expenses/add/false">Add</a></li>
+              <li><a ng-href="#/expenses/viewrec">View recurring</a></li>
+              <li><a ng-href="#/expenses/add/true">Add recurring</a></li>
+            </ul>
+          </li>
+          <li data-match-route="/reports" class="dropdown">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">Reports <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a ng-href="#/reports/list">List</a></li>
+              <li><a ng-href="#/reports/generate">Generate</a></li>
+            </ul>
+          </li>
+          <li data-match-route="/debts"><a ng-href="#/debts">Debts</a></li>
+          <li><a href="" ng-click="logout()">Logout</a></li>
+        </ul>
+        <ul class="nav nav-pills pull-right" bs-navbar ng-show="user.id && user.admin">
+          <li data-match-route="/admin" class="dropdown">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a ng-href="#/admin/users">View users</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- Common stuff -->
+        <ul class="nav nav-pills pull-right" bs-navbar>
+          <li data-match-route="/$"><a ng-href="#">Home</a></li>
+        </ul>
+        <div ng-show="user.id">
+          Hello, {{user.name}}
+        </div>
+        <h3 class="text-muted">BSoviet Expenses</h3>
+      </div>
+
+      <div class="container" ng-controller="ErrorCtrl">
+        <div class="alert alert-danger" ng-repeat="error in errors">
+          {{error}}
+        </div>
+      </div>
+
+      <div ng-view=""></div>
+
+      <div class="footer" ng-controller="MenuCtrl">
+        <div class="container">
+          User: {{printUser()}}
+        </div>
+      </div>
+    </div>
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- <script src="bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> -->
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers.js"></script>
+    <script src="scripts/services.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

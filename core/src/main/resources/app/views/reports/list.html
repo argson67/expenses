@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Reports</h3>
+  </div>
+
+  <table class="table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th><a href="" ng-click="sortOnClick('date')">Date <b ng-class="caret('date')"></b></a></th>
+        <th><a href="" ng-click="sortOnClick('description')">Description <b ng-class="caret('description')"></b></a></th>
+        <th><a href="" ng-click="sortOnClick('fromDate')">Start date <b ng-class="caret('fromDate')"></b></a></th>
+        <th><a href="" ng-click="sortOnClick('endDate')">End date <b ng-class="caret('toDate')"></b></a></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="report in reports | orderBy:sortBy:sortReverse" ng-href="viewReport(report.id)">
+        <td>{{report.date}}</td>
+        <td>{{report.description}}</td>
+        <td>{{report.fromDate}}</td>
+        <td>{{report.toDate}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

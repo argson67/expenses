@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: net.virtual-void:json-lenses_2.10:0.5.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.virtual-void/json-lenses_2.10/jars/json-lenses_2.10-0.5.4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.virtual-void/json-lenses_2.10/docs/json-lenses_2.10-0.5.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.virtual-void/json-lenses_2.10/srcs/json-lenses_2.10-0.5.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
