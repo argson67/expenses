@@ -10,5 +10,5 @@ object DB {
   implicit val db = new Database(slickDB)
 
   val tables: Map[String, DBRepo[_]] =
-    List(Users, Debts, Expenses, Reports, ExpenseTargets, RecurringExpenses).map(t => t.tableName -> t).toMap
+    List(Users, Debts, Expenses, Reports, ExpenseTargets, RecurringExpenses, CommittedExpenses).map(t => t.tableName -> t).toMap
 }

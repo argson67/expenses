@@ -72,7 +72,7 @@ trait ExpenseRoutes {
     DB.db.readOnly { implicit s =>
       for (from <- parseDate(fromDate);
            to   <- parseDate(toDate);
-           lst  <- Expenses.getRange(from, to).map(_.publicJson).accumulate
+           lst  <- Expenses.getInRange(from, to).map(_.publicJson).accumulate
       ) yield {
         JArray(lst)
       }
@@ -138,6 +138,16 @@ trait ExpenseRoutes {
     }
   }
 
+  val getExpensesByReport = path("report" / IntNumber) { id =>
+    get {
+      DB.db.readOnly { implicit s =>
+        handleError(Expenses.getByReport(Id[Report](id)).map(_.publicJson).accumulate) { res =>
+          complete(JArray(res))
+        }
+      }
+    }
+  }
+
   val getRecurringExpenses = path("recurringExpenses") {
     def inner = DB.db.readOnly { implicit s =>
       handleError(Expenses.recurring.map(_.publicJson).accumulate) { res =>
@@ -148,5 +158,7 @@ trait ExpenseRoutes {
     (get | post).apply(ctx => inner(ctx))
   }
 
-  val expenseRoute = getRecurringExpenses ~ getExpenses ~ pathPrefix("expense") { createExpense ~ editExpense ~ deleteExpense ~ getExpense }
+  val expenseRoute = getRecurringExpenses ~ getExpenses ~ pathPrefix("expense") {
+    createExpense ~ editExpense ~ deleteExpense ~ getExpense ~ getExpensesByReport
+  }
 }

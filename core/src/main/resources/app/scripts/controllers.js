@@ -109,11 +109,19 @@ angular.module('moneyApp')
 
     $scope.user = userSrv.user;
 
+    $scope.rowClass = function (committed) {
+      if (committed) {
+        return "info";
+      } else {
+        return "";
+      }
+    };
+
     $scope.expenses = expensesSrv.expenses;
     $scope.deleteSelected = expensesSrv.deleteSelected;
     $scope.selectAll = function () {
       $scope.expenses.forEach(function (expense) {
-        if ($scope.user.admin || $scope.user.id == expense.owner.id) {
+        if (!expense.committed && ($scope.user.admin || $scope.user.id == expense.owner.id)) {
           expense.selected = true;
         }
       });
@@ -155,11 +163,24 @@ angular.module('moneyApp')
     $scope.user = userSrv.user;
 
     $scope.expenses = expensesSrv.expenses;
-    $scope.deleteExpense = expensesSrv.deleteExpense;
+    $scope.deleteSelected = expensesSrv.deleteSelected;
     $scope.editExpense = function (expenseId) {
       redirectSrv.setup($location.path());
       $location.path('/expenses/edit/' + expenseId);
-    }
+    };
+
+    $scope.selectAll = function () {
+      $scope.expenses.forEach(function (expense) {
+        if (!expense.committed && ($scope.user.admin || $scope.user.id == expense.owner.id)) {
+          expense.selected = true;
+        }
+      });
+    };
+    $scope.deselectAll = function () {
+      $scope.expenses.forEach(function (expense) {
+        expense.selected = false;
+      });
+    };
 
     $scope.$on('$routeChangeSuccess', function () {
       console.log("Getting recurring expenses");
@@ -168,7 +189,7 @@ angular.module('moneyApp')
 
     mkSort($scope, "date");
   })
-  .controller('ExpensesEditCtrl', function ($scope, $routeParams, userSrv, expenseSrv) {
+  .controller('ExpensesEditCtrl', function ($scope, $routeParams, userSrv, redirectSrv, expenseSrv) {
     $scope.state = expenseSrv.state;
     $scope.expense = expenseSrv.expense;
     $scope.recurring = function () {
@@ -183,20 +204,39 @@ angular.module('moneyApp')
 
     $scope.$on('$routeChangeSuccess', function () {
       console.log("Getting active users");
-      userSrv.getActiveUsers();
+      userSrv.getActiveUsers(function () {
+        if ($routeParams.id) {
+          $scope.expense.owner = null; // Hack to hide the form until the expense has been loaded
+          redirectSrv.orElse("/expenses/view");
+          expenseSrv.loadExpense($routeParams.id);
+        } else {
+          console.log("Resetting expense");
+          if ($routeParams.rec == "true") {
+            redirectSrv.orElse("/expenses/viewRec");
+          } else {
+            redirectSrv.orElse("/expenses/view");
+          }
+          expenseSrv.reset($routeParams.rec == "true");
+        }
+
+        //$('#amount').maskMoney('mask');
+      });
     });
 
-    if ($routeParams.id) {
-      $scope.expense.owner = null; // Hack to hide the form until the expense has been loaded
-      expenseSrv.loadExpense($routeParams.id);
-    } else {
-      expenseSrv.reset($routeParams.rec == "true");
-    }
+    //$('#amount').maskMoney({thousands: '', decimal: '.', allowZero: false, allowNegative: false, prefix: '$'});
   }).controller('ModalCtrl', function($scope, modalSrv) {
     $scope.modal = modalSrv;
   })
-  .controller('ReportsListCtrl', function ($scope, reportsSrv) {
+  .controller('ReportsListCtrl', function ($scope, $location, reportsSrv) {
     $scope.reports = reportsSrv.reports;
+
+    $scope.viewReport = function (id) {
+      $location.path("/reports/view/" + id);
+    };
+
+    $scope.$on('$routeChangeSuccess', function () {
+      reportsSrv.getReports();
+    });
 
     mkSort($scope, "date");
   })
@@ -215,13 +255,50 @@ angular.module('moneyApp')
       $scope.fromDate = new Date(today.getFullYear(), today.getMonth() - 1, 1, 0, 0, 0, 0);
       $scope.toDate = new Date(today.getFullYear(), today.getMonth(), 0, 0, 0, 0, 0);
     };
+
+    $scope.submit = function () {
+      reportsSrv.generate($scope.fromDate, $scope.toDate);
+    };
   })
-  .controller('ReportsViewCtrl', function ($scope, reportSrv) {
+  .controller('ReportsViewCtrl', function ($scope, $routeParams, userSrv, reportSrv) {
     $scope.report = reportSrv.report;
+    $scope.debts = reportSrv.debts;
+    $scope.expenses = reportSrv.expenses;
+
+    $scope.payDebt = reportSrv.payDebt;
+    $scope.confirmDebt = reportSrv.confirmDebt;
+
+    $scope.$on('$routeChangeSuccess', function () {
+      if ($routeParams.id) {
+        reportSrv.getReport($routeParams.id);
+      }
+    });
+
+    $scope.rowClass = function (debt) {
+      if (debt.confirmed && (debt.debtor.id == userSrv.user.id || debt.creditor.id == userSrv.user.id)) {
+        return "info";
+      } else if (debt.debtor.id == userSrv.user.id) {
+        return "danger";
+      } else if (debt.creditor.id == userSrv.user.id) {
+        return "success";
+      } else {
+        return "";
+      }
+    };
+
+    mkSort($scope, "date", "ex");
+    mkSort($scope, "creditor.name", "db");
   })
   .controller('DebtsCtrl', function ($scope, debtsSrv) {
     $scope.myDebts = debtsSrv.myDebts;
     $scope.otherDebts = debtsSrv.otherDebts;
+
+    $scope.payDebt = debtsSrv.payDebt;
+    $scope.confirmDebt = debtsSrv.confirmDebt;
+
+    $scope.$on('$routeChangeSuccess', function () {
+      debtsSrv.getDebts();
+    });
 
     mkSort($scope, "creditor.name", "my");
     mkSort($scope, "debtor.name", "other");

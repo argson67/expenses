@@ -10,15 +10,18 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        publicAccess: true
       })
       .when('/login', {
         templateUrl: 'views/login.html',
-        controller: 'AuthCtrl'
+        controller: 'AuthCtrl',
+        publicAccess: true
       })
       .when('/register', {
         templateUrl: 'views/register.html',
-        controller: 'AuthCtrl'
+        controller: 'AuthCtrl',
+        publicAccess: true
       })
       .when('/expenses/view', {
         templateUrl: 'views/expenses/view.html',
@@ -56,7 +59,27 @@ angular
         templateUrl: 'views/debts.html',
         controller: 'DebtsCtrl'
       })
+      .when('', {
+        redirectTo: '/',
+        publicAccess: true
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/',
+        publicAccess: true
       });
+  }).run(function ($rootScope, $location, userSrv, $route) {
+    userSrv.checkActiveLogin();
+
+    $rootScope.$on('$routeChangeStart', function (event, nextLoc, currentLoc) {
+      console.log("nextLoc: " + JSON.stringify(nextLoc));
+      var closedToPublic = nextLoc.$$route && !nextLoc.$$route.publicAccess;
+      if (closedToPublic) {
+        userSrv.checkActiveLogin(function () { },
+          function () {
+            if (!userSrv.user.id) {
+              $location.path('/login');
+            }
+          });
+      }
+    });
   });

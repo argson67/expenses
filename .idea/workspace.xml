@@ -5,52 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a12e6b8-70cc-42c9-91a9-23fb3a0dc286" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/Admin.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/ApiRoutes.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/Auth.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/errors/AuthError.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/Boot.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/data/Credentials.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/Cron.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/DB.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/db/DBError.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/data/DateRange.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/models/Debts.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/data/ExpenseData.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/relations/ExpenseTargets.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/json/JsonFormat.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/json/JsonMacros.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/json/JsonParseError.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/json/MacroHelper.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/json/MissingField.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/MoneyDirectives.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/MoneyService.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/json/NotAnObjectError.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/data/RegistrationForm.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/db/annotations/RepoAnnotationHelper.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/db/annotations/TableKind.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/UserRoutes.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/models/Users.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/scala/money/errors/WebError.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/json/WrongJsonTypeError.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/debts.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/reports/generate.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/login.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/db/annotations/model.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/db/annotations/modelTag.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/app/styles/my.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/json/package.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/register.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/db/annotations/relation.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/db/annotations/relationTag.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/expenses/view.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/admin/viewUsers.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/webapp/WEB-INF/web.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/main/scala/money/Frequency.scala" afterPath="$PROJECT_DIR$/core/src/main/scala/money/ReportRoutes.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/scala/money/ApiRoutes.scala" afterPath="$PROJECT_DIR$/core/src/main/scala/money/ApiRoutes.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/scala/money/Auth.scala" afterPath="$PROJECT_DIR$/core/src/main/scala/money/Auth.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/scala/money/DB.scala" afterPath="$PROJECT_DIR$/core/src/main/scala/money/DB.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/macros/src/main/scala/money/db/DBRepo.scala" afterPath="$PROJECT_DIR$/macros/src/main/scala/money/db/DBRepo.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/scala/money/models/Debts.scala" afterPath="$PROJECT_DIR$/core/src/main/scala/money/models/Debts.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/scala/money/ExpenseRoutes.scala" afterPath="$PROJECT_DIR$/core/src/main/scala/money/ExpenseRoutes.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/scala/money/models/Expenses.scala" afterPath="$PROJECT_DIR$/core/src/main/scala/money/models/Expenses.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/app/scripts/app.js" afterPath="$PROJECT_DIR$/core/src/main/resources/app/scripts/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/app/scripts/controllers.js" afterPath="$PROJECT_DIR$/core/src/main/resources/app/scripts/controllers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/app/views/debts.html" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/debts.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/app/views/reports/generate.html" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/reports/generate.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/app/index.html" afterPath="$PROJECT_DIR$/core/src/main/resources/app/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/app/views/reports/list.html" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/reports/list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/app/scripts/services.js" afterPath="$PROJECT_DIR$/core/src/main/resources/app/scripts/services.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/app/views/expenses/view.html" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/expenses/view.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/app/views/reports/view.html" afterPath="$PROJECT_DIR$/core/src/main/resources/app/views/reports/view.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="money.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -117,7 +90,70 @@
       <file leaf-file-name="controllers.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/scripts/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="226" column="43" selection-start="6570" selection-end="6570" vertical-scroll-proportion="0.0" vertical-offset="3180" max-vertical-offset="4212">
+            <state line="217" column="11" selection-start="6171" selection-end="6171" vertical-scroll-proportion="0.0" vertical-offset="3342" max-vertical-offset="5598">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Auth.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/Auth.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="95" column="5" selection-start="2498" selection-end="2498" vertical-scroll-proportion="0.0" vertical-offset="876" max-vertical-offset="1908">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserRoutes.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/UserRoutes.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="23" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="774">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/scripts/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="75" column="27" selection-start="2213" selection-end="2213" vertical-scroll-proportion="0.0" vertical-offset="606" max-vertical-offset="1638">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/expenses/edit.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="14" selection-start="1696" selection-end="1696" vertical-scroll-proportion="0.0" vertical-offset="738" max-vertical-offset="1584">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="80" column="17" selection-start="3999" selection-end="3999" vertical-scroll-proportion="0.054913294" vertical-offset="1402" max-vertical-offset="2466">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/reports/list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="12" selection-start="1000" selection-end="1000" vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="540">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/reports/view.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="70" column="0" selection-start="3232" selection-end="3232" vertical-scroll-proportion="0.0" vertical-offset="1260" max-vertical-offset="1368">
               <folding />
             </state>
           </provider>
@@ -126,7 +162,7 @@
       <file leaf-file-name="viewRec.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/expenses/viewRec.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="27" selection-start="1291" selection-end="1291" vertical-scroll-proportion="-14.666667" vertical-offset="0" max-vertical-offset="828">
+            <state line="40" column="6" selection-start="2269" selection-end="2269" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="828">
               <folding />
             </state>
           </provider>
@@ -135,78 +171,7 @@
       <file leaf-file-name="debts.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/debts.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="36" selection-start="1181" selection-end="1181" vertical-scroll-proportion="-10.555555" vertical-offset="183" max-vertical-offset="1188">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/expenses/view.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="8" selection-start="114" selection-end="114" vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="1782">
-              <folding>
-                <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="services.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/scripts/services.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="393" column="19" selection-start="10770" selection-end="10770" vertical-scroll-proportion="0.0" vertical-offset="1488" max-vertical-offset="7200">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Expenses.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/models/Expenses.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="11" selection-start="479" selection-end="479" vertical-scroll-proportion="0.0" vertical-offset="489" max-vertical-offset="2700">
-              <folding>
-                <element signature="e#22#51#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Reports.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/models/Reports.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="7" selection-start="1881" selection-end="1881" vertical-scroll-proportion="0.0" vertical-offset="156" max-vertical-offset="1188">
-              <folding>
-                <element signature="e#22#51#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CommittedExpenses.scala" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/relations/CommittedExpenses.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="7" selection-start="575" selection-end="575" vertical-scroll-proportion="0.33861387" vertical-offset="0" max-vertical-offset="1010">
-              <folding>
-                <element signature="e#25#105#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/scripts/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="37" selection-start="1390" selection-end="1390" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1224">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/styles/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="19" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0" vertical-offset="280" max-vertical-offset="1530">
+            <state line="50" column="49" selection-start="2129" selection-end="2129" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="1368">
               <folding />
             </state>
           </provider>
@@ -225,9 +190,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/macros/src/main/scala/money/db/DBError.scala" />
-        <option value="$PROJECT_DIR$/macros/src/main/scala/money/db/Id.scala" />
-        <option value="$PROJECT_DIR$/macros/src/main/scala/money/errors/Error.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/data/RegistrationForm.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/errors/WebError.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/errors/AuthError.scala" />
@@ -236,17 +198,13 @@
         <option value="$PROJECT_DIR$/core/src/main/scala/money/models/Users.scala" />
         <option value="$PROJECT_DIR$/core/src/main/resources/app/views/expenses/addRec.html" />
         <option value="$PROJECT_DIR$/core/src/main/resources/app/views/expenses/add.html" />
-        <option value="$PROJECT_DIR$/core/src/main/scala/money/models/Debts.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/relations/ExpenseTargets.scala" />
         <option value="$PROJECT_DIR$/macros/src/main/scala/money/db/Database.scala" />
         <option value="$PROJECT_DIR$/macros/src/main/scala/money/db/ModelRepo.scala" />
         <option value="$PROJECT_DIR$/macros/src/main/scala/money/db/Model.scala" />
-        <option value="$PROJECT_DIR$/core/src/main/scala/money/ApiRoutes.scala" />
-        <option value="$PROJECT_DIR$/macros/src/main/scala/money/db/DBRepo.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/MoneyDirectives.scala" />
         <option value="$PROJECT_DIR$/macros/src/main/scala/money/json/WrongJsonTypeError.scala" />
         <option value="$PROJECT_DIR$/macros/src/main/scala/money/json/JsonMacros.scala" />
-        <option value="$PROJECT_DIR$/core/src/main/scala/money/Auth.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/data/DateRange.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/data/FrequencyUnit.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/data/ExpenseData.scala" />
@@ -254,10 +212,8 @@
         <option value="$PROJECT_DIR$/core/src/main/resources/app/styles/main.css" />
         <option value="$PROJECT_DIR$/macros/src/main/scala/money/errors/package.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/UserRoutes.scala" />
-        <option value="$PROJECT_DIR$/core/src/main/scala/money/models/Expenses.scala" />
         <option value="$PROJECT_DIR$/macros/src/main/scala/money/json/package.scala" />
         <option value="$PROJECT_DIR$/macros/src/main/scala/money/json/JsonFormat.scala" />
-        <option value="$PROJECT_DIR$/core/src/main/scala/money/ExpenseRoutes.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/Cron.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/Boot.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/money/models/Reports.scala" />
@@ -265,25 +221,33 @@
         <option value="$PROJECT_DIR$/core/src/main/resources/app/views/expenses/edit.html" />
         <option value="$PROJECT_DIR$/core/src/main/resources/app/views/login.html" />
         <option value="$PROJECT_DIR$/core/src/main/resources/app/views/register.html" />
-        <option value="$PROJECT_DIR$/core/src/main/resources/app/views/reports/generate.html" />
-        <option value="$PROJECT_DIR$/core/src/main/resources/app/scripts/app.js" />
-        <option value="$PROJECT_DIR$/core/src/main/resources/app/index.html" />
         <option value="$PROJECT_DIR$/core/src/main/resources/app/views/expenses/viewRec.html" />
-        <option value="$PROJECT_DIR$/core/src/main/resources/app/views/reports/list.html" />
-        <option value="$PROJECT_DIR$/core/src/main/resources/app/views/reports/view.html" />
         <option value="$PROJECT_DIR$/core/src/main/resources/app/styles/my.css" />
-        <option value="$PROJECT_DIR$/core/src/main/resources/app/scripts/services.js" />
+        <option value="$PROJECT_DIR$/core/src/main/resources/app/views/reports/generate.html" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/money/DB.scala" />
+        <option value="$PROJECT_DIR$/macros/src/main/scala/money/db/DBRepo.scala" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/money/ApiRoutes.scala" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/money/ExpenseRoutes.scala" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/money/models/Expenses.scala" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/money/DebtRoutes.scala" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/money/ReportRoutes.scala" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/money/models/Debts.scala" />
         <option value="$PROJECT_DIR$/core/src/main/resources/app/views/debts.html" />
+        <option value="$PROJECT_DIR$/core/src/main/resources/app/views/reports/view.html" />
+        <option value="$PROJECT_DIR$/core/src/main/resources/app/views/reports/list.html" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/money/Auth.scala" />
         <option value="$PROJECT_DIR$/core/src/main/resources/app/views/expenses/view.html" />
+        <option value="$PROJECT_DIR$/core/src/main/resources/app/scripts/services.js" />
+        <option value="$PROJECT_DIR$/core/src/main/resources/app/scripts/app.js" />
         <option value="$PROJECT_DIR$/core/src/main/resources/app/scripts/controllers.js" />
+        <option value="$PROJECT_DIR$/core/src/main/resources/app/index.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-5" />
     <option name="y" value="26" />
-    <option name="width" value="1610" />
-    <option name="height" value="1153" />
+    <option name="width" value="1600" />
+    <option name="height" value="848" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -680,48 +644,6 @@
               <option name="myItemId" value="relations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RecurringExpenses.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="money" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="money" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="money" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="relations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpenseTargets.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -793,10 +715,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Users.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1403,7 +1321,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-5" y="26" width="1610" height="1153" extended-state="6" />
+    <frame x="0" y="26" width="1600" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1457,58 +1375,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/idea.jar!/resources/html5-schema/tables.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="221" column="17" selection-start="4341" selection-end="4341" vertical-scroll-proportion="0.33239436" vertical-offset="3742" max-vertical-offset="4590" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/macros/src/main/scala/money/db/DBRepo.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="0" selection-start="1840" selection-end="1840" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="1044">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/models/Users.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="27" selection-start="868" selection-end="868" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/macros/src/main/scala/money/errors/Error.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="6" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-routing/srcs/spray-routing-1.3.1-sources.jar!/spray/routing/package.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="29" selection-start="699" selection-end="713" vertical-scroll-proportion="0.15789473" vertical-offset="0" max-vertical-offset="912" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/UserRoutes.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="774">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/MoneyDirectives.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="31" selection-start="1730" selection-end="1730" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="1044">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/macros/src/main/scala/money/db/ModelRepo.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="62" selection-start="959" selection-end="959" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="954">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/relations/ExpenseTargets.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="7" selection-start="780" selection-end="780" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="414">
@@ -1516,30 +1382,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/Frequency.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1010" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/resources/application.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="0" selection-start="29" selection-end="42" vertical-scroll-proportion="0.071287125" vertical-offset="0" max-vertical-offset="1010" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/MoneyService.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="31" selection-start="310" selection-end="310" vertical-scroll-proportion="0.20930232" vertical-offset="0" max-vertical-offset="1032">
-          <folding>
-            <element signature="e#15#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/Sessions.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="6" selection-start="153" selection-end="153" vertical-scroll-proportion="0.069767445" vertical-offset="0" max-vertical-offset="1032">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/joda-time/joda-time/srcs/joda-time-2.3-sources.jar!/org/joda/time/base/AbstractDateTime.java">
@@ -1582,22 +1427,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/Auth.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="3" selection-start="890" selection-end="890" vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="1602">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/ExpenseRoutes.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="7" selection-start="2834" selection-end="2834" vertical-scroll-proportion="0.0" vertical-offset="808" max-vertical-offset="2844">
-          <folding>
-            <element signature="e#15#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/joda-time/joda-time/srcs/joda-time-2.3-sources.jar!/org/joda/time/DateTimeField.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="659" column="68" selection-start="28038" selection-end="28038" vertical-scroll-proportion="0.64356434" vertical-offset="10960" max-vertical-offset="11970" />
@@ -1605,30 +1434,17 @@
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/joda-time/joda-time/srcs/joda-time-2.3-sources.jar!/org/joda/time/Chronology.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="369" column="27" selection-start="13643" selection-end="13643" vertical-scroll-proportion="0.0" vertical-offset="6054" max-vertical-offset="8928">
-          <folding />
-        </state>
+        <state line="369" column="27" selection-start="13643" selection-end="13643" vertical-scroll-proportion="0.0" vertical-offset="6054" max-vertical-offset="8928" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/joda-time/joda-time/srcs/joda-time-2.3-sources.jar!/org/joda/time/DateTime.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2230" column="44" selection-start="85999" selection-end="85999" vertical-scroll-proportion="0.46083418" vertical-offset="39165" max-vertical-offset="41418">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/macros/src/main/scala/money/db/RelationRepo.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="20" selection-start="312" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-          <folding />
-        </state>
+        <state line="2230" column="44" selection-start="85999" selection-end="85999" vertical-scroll-proportion="0.46083418" vertical-offset="39165" max-vertical-offset="41418" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/macros/src/main/scala/money/db/Relation.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="66" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <folding />
-        </state>
+        <state line="12" column="66" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/Boot.scala">
@@ -1654,27 +1470,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/models/Debts.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="89" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
-          <folding>
-            <element signature="e#22#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/admin/viewUsers.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1010">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/expenses/edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="14" selection-start="2740" selection-end="2962" vertical-scroll-proportion="-29.074074" vertical-offset="601" max-vertical-offset="1584">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1010" />
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/idea.jar!/resources/html5-schema/phrase.rnc">
@@ -1684,137 +1482,233 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1010">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="6" selection-start="1517" selection-end="1517" vertical-scroll-proportion="-26.666666" vertical-offset="0" max-vertical-offset="846">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="6" selection-start="0" selection-end="1011" vertical-scroll-proportion="-18.666666" vertical-offset="0" max-vertical-offset="630">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/reports/view.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="43" selection-start="1707" selection-end="1707" vertical-scroll-proportion="-18.666666" vertical-offset="216" max-vertical-offset="1314">
-          <folding />
-        </state>
+        <state line="40" column="6" selection-start="1517" selection-end="1517" vertical-scroll-proportion="-26.666666" vertical-offset="0" max-vertical-offset="846" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/styles/my.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="19" selection-start="76" selection-end="76" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/reports/generate.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="121" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1062">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/reports/list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="11" selection-start="691" selection-end="691" vertical-scroll-proportion="-9.333333" vertical-offset="0" max-vertical-offset="540">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="44" selection-start="817" selection-end="817" vertical-scroll-proportion="-10.666667" vertical-offset="0" max-vertical-offset="2502">
-          <folding />
-        </state>
+        <state line="5" column="19" selection-start="76" selection-end="76" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/styles/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="19" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0" vertical-offset="280" max-vertical-offset="1530">
+        <state line="36" column="19" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0" vertical-offset="280" max-vertical-offset="1530" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/macros/src/main/scala/money/db/annotations/RepoAnnotationHelper.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="40" selection-start="914" selection-end="914" vertical-scroll-proportion="0.4883721" vertical-offset="0" max-vertical-offset="4968" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/reports/generate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="37" selection-start="431" selection-end="431" vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1062" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/DB.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="1" selection-start="489" selection-end="489" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+          <folding>
+            <element signature="e#15#92#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/macros/src/main/scala/money/db/ModelRepo.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="41" selection-start="265" selection-end="265" vertical-scroll-proportion="0.10140845" vertical-offset="0" max-vertical-offset="954" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/macros/src/main/scala/money/db/DBRepo.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="0" selection-start="1919" selection-end="1919" vertical-scroll-proportion="0.0" vertical-offset="312" max-vertical-offset="1044" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1010" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="14" selection-start="484" selection-end="484" vertical-scroll-proportion="-7.3333335" vertical-offset="0" max-vertical-offset="630" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/MoneyDirectives.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="31" selection-start="1730" selection-end="1730" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="1044">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/scripts/app.js">
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/Sessions.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="37" selection-start="1390" selection-end="1390" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1224">
+        <state line="2" column="0" selection-start="15" selection-end="15" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="792">
+          <folding>
+            <element signature="e#15#54#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/MoneyService.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="69" selection-start="566" selection-end="566" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="774">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/scripts/services.js">
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/ApiRoutes.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="393" column="19" selection-start="10770" selection-end="10770" vertical-scroll-proportion="0.0" vertical-offset="1488" max-vertical-offset="7200">
+        <state line="2" column="6" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/relations/CommittedExpenses.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="11" selection-start="372" selection-end="372" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/macros/src/main/scala/money/db/RelationRepo.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="6" selection-start="234" selection-end="234" vertical-scroll-proportion="0.12475248" vertical-offset="0" max-vertical-offset="1010" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/models/Reports.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="40" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0" vertical-offset="178" max-vertical-offset="1188">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/ExpenseRoutes.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="35" selection-start="1826" selection-end="1826" vertical-scroll-proportion="0.0" vertical-offset="1024" max-vertical-offset="3060">
+          <folding>
+            <element signature="e#15#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/models/Expenses.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="157" column="5" selection-start="6035" selection-end="6035" vertical-scroll-proportion="0.0" vertical-offset="2153" max-vertical-offset="3150">
+          <folding>
+            <element signature="e#22#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/ReportRoutes.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="110" selection-start="1620" selection-end="1620" vertical-scroll-proportion="0.0" vertical-offset="666" max-vertical-offset="1926">
+          <folding>
+            <element signature="e#15#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/models/Debts.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="11" selection-start="406" selection-end="406" vertical-scroll-proportion="0.2851485" vertical-offset="0" max-vertical-offset="1152">
+          <folding>
+            <element signature="e#22#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/DebtRoutes.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="7" selection-start="2039" selection-end="2039" vertical-scroll-proportion="0.0" vertical-offset="643" max-vertical-offset="1710">
+          <folding>
+            <element signature="e#15#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/expenses/view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="13" selection-start="3075" selection-end="3075" vertical-scroll-proportion="-20.25926" vertical-offset="785" max-vertical-offset="1782" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/debts.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="36" selection-start="1181" selection-end="1181" vertical-scroll-proportion="-10.555555" vertical-offset="183" max-vertical-offset="1188">
+        <state line="50" column="49" selection-start="2129" selection-end="2129" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="1368">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/expenses/viewRec.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="27" selection-start="1291" selection-end="1291" vertical-scroll-proportion="-14.666667" vertical-offset="0" max-vertical-offset="828">
+        <state line="40" column="6" selection-start="2269" selection-end="2269" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="828">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/expenses/view.html">
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/reports/view.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="8" selection-start="114" selection-end="114" vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="1782">
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="70" column="0" selection-start="3232" selection-end="3232" vertical-scroll-proportion="0.0" vertical-offset="1260" max-vertical-offset="1368">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/reports/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="12" selection-start="1000" selection-end="1000" vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/UserRoutes.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="23" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="774">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/Auth.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="5" selection-start="2498" selection-end="2498" vertical-scroll-proportion="0.0" vertical-offset="876" max-vertical-offset="1908">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/scripts/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="27" selection-start="2213" selection-end="2213" vertical-scroll-proportion="0.0" vertical-offset="606" max-vertical-offset="1638">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/views/expenses/edit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="14" selection-start="1696" selection-end="1696" vertical-scroll-proportion="0.0" vertical-offset="738" max-vertical-offset="1584">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/scripts/services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="41" selection-start="2780" selection-end="2780" vertical-scroll-proportion="0.0" vertical-offset="1818" max-vertical-offset="10962">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/scripts/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="226" column="43" selection-start="6570" selection-end="6570" vertical-scroll-proportion="0.0" vertical-offset="3180" max-vertical-offset="4212">
+        <state line="217" column="11" selection-start="6171" selection-end="6171" vertical-scroll-proportion="0.0" vertical-offset="3342" max-vertical-offset="5598">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/models/Expenses.scala">
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="11" selection-start="479" selection-end="479" vertical-scroll-proportion="0.0" vertical-offset="489" max-vertical-offset="2700">
-          <folding>
-            <element signature="e#22#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/models/Reports.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="7" selection-start="1881" selection-end="1881" vertical-scroll-proportion="0.0" vertical-offset="156" max-vertical-offset="1188">
-          <folding>
-            <element signature="e#22#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/money/relations/CommittedExpenses.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="7" selection-start="575" selection-end="575" vertical-scroll-proportion="0.33861387" vertical-offset="0" max-vertical-offset="1010">
-          <folding>
-            <element signature="e#25#105#0" expanded="true" />
-          </folding>
+        <state line="80" column="17" selection-start="3999" selection-end="3999" vertical-scroll-proportion="0.054913294" vertical-offset="1402" max-vertical-offset="2466">
+          <folding />
         </state>
       </provider>
     </entry>

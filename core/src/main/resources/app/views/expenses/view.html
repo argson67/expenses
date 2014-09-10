@@ -60,16 +60,16 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="expense in expenses | orderBy:sortBy:sortReverse">
+      <tr ng-repeat="expense in expenses | orderBy:sortBy:sortReverse" ng-class="rowClass(expense.committed)">
         <td class="iconCol">
           <input type="checkbox"
                  ng-model="expense.selected"
-                 ng-disabled="!user.admin && user.id != expense.owner.id">
+                 ng-disabled="expense.committed || (!user.admin && user.id != expense.owner.id)">
         </td>
         <td class="iconCol">
           <a ng-click="editExpense(expense.id)"
              href=""
-             ng-show="user.admin || user.id == expense.owner.id">
+             ng-show="!expense.committed && (user.admin || user.id == expense.owner.id)">
             <b class="fa fa-pencil"></b>
           </a>
         </td>

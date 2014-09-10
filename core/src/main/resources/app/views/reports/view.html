@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" ng-show="report.id">
   <div class="panel-heading">
     <h3 class="panel-title">Report {{report.date}}</h3>
   </div>
@@ -12,22 +12,22 @@
       <table class="table table-striped table-bordered table-condensed">
         <thead>
           <tr>
-            <th><a href="" ng-click="sortOnClick('date')">Date <b ng-class="caret('date')"></b></a></th>
-            <th><a href="" ng-click="sortOnClick('owner.name')">Owner <b ng-class="caret('owner.name')"></b></a></th>
-            <th><a href="" ng-click="sortOnClick('amount')">Amount <b ng-class="caret('amount')"></b></a></th>
-            <th><a href="" ng-click="sortOnClick('description')">Description <b ng-class="caret('description')"></b></a></th>
-            <th><a href="" ng-click="sortOnClick('comment')">Comment <b ng-class="caret('comment')"></b></a></th>
-            <th><a href="" ng-click="sortOnClick('beneficiaries')">Beneficiaries <b ng-class="caret('beneficiaries')"></b></a></th>
+            <th><a href="" ng-click="exSortOnClick('date')">Date <b ng-class="exCaret('date')"></b></a></th>
+            <th><a href="" ng-click="exSortOnClick('owner.name')">Owner <b ng-class="exCaret('owner.name')"></b></a></th>
+            <th><a href="" ng-click="exSortOnClick('amount')">Amount <b ng-class="exCaret('amount')"></b></a></th>
+            <th><a href="" ng-click="exSortOnClick('description')">Description <b ng-class="exCaret('description')"></b></a></th>
+            <th><a href="" ng-click="exSortOnClick('comment')">Comment <b ng-class="exCaret('comment')"></b></a></th>
+            <th><a href="" ng-click="exSortOnClick('beneficiaries')">Beneficiaries <b ng-class="exCaret('beneficiaries')"></b></a></th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="expense in expenses | orderBy:sortBy:sortReverse">
+          <tr ng-repeat="expense in expenses | orderBy:exSortBy:exSortReverse">
             <td>{{expense.date}}</td>
             <td>{{expense.owner.name}}</td>
             <td>{{expense.amount}}</td>
             <td>{{expense.description}}</td>
             <td>{{expense.comment}}</td>
-            <td>{{expense.committed}}</td>
+            <td>{{expense.beneficiaries}}</td>
           </tr>
         </tbody>
       </table>
@@ -38,27 +38,30 @@
         <h3 class="panel-title">Debts</h3>
       </div>
 
+      <!-- TODO: highlight rows depending on whether it's a debt you owe or a debt owed to you -->
       <table class="table table-striped table-bordered table-condensed">
         <thead>
           <tr>
             <th class="iconCol"></th>
             <th class="iconCol"></th>
-            <th><a href="" ng-click="sortOnClick('creditor.name')">Creditor <b ng-class="caret('creditor.name')"></b></a></th>
-            <th><a href="" ng-click="sortOnClick('debtor.name')">Debtor <b ng-class="caret('debtor.name')"></b></a></th>
-            <th><a href="" ng-click="sortOnClick('amount')">Amount <b ng-class="caret('amount')"></b></a></th>
-            <th><a href="" ng-click="sortOnClick('payed')">Payed <b ng-class="caret('payed')"></b></a></th>
-            <th><a href="" ng-click="sortOnClick('confirmed')">Confirmed <b ng-class="caret('confirmed')"></b></a></th>
+            <th><a href="" ng-click="dbSortOnClick('creditor.name')">Creditor <b ng-class="dbCaret('creditor.name')"></b></a></th>
+            <th><a href="" ng-click="dbSortOnClick('debtor.name')">Debtor <b ng-class="dbCaret('debtor.name')"></b></a></th>
+            <th><a href="" ng-click="dbSortOnClick('amount')">Amount <b ng-class="dbCaret('amount')"></b></a></th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="debt in debts | orderBy:sortBy:sortReverse">
-            <td class="iconCol"><a href=""><b class="fa fa-money"></b></a></td>
-            <td class="iconCol"><a href=""><b class="fa fa-check"></b></a></td>
+          <tr ng-repeat="debt in debts | orderBy:dbSortBy:dbSortReverse" ng-class="rowClass(debt)">
+            <td class="iconCol">
+              <a href="" ng-show="debt.debtor.id == user.id && !debt.paid" ng-click="payDebt(debt)"><b class="fa fa-money"></b></a>
+              <b class="fa fa-money" ng-show="debt.paid"></b>
+            </td>
+            <td class="iconCol">
+              <a href="" ng-show="debt.creditor.id == user.id && debt.paid && !debt.confirmed" ng-click="confirmDebt(debt)"><b class="fa fa-check"></b></a>
+              <b class="fa fa-check" ng-show="debt.confirmed"></b>
+            </td>
             <td>{{debt.creditor.name}}</td>
             <td>{{debt.debtor.name}}</td>
             <td>{{debt.amount}}</td>
-            <td>{{debt.payed}}</td>
-            <td>{{debt.confirmed}}</td>
           </tr>
         </tbody>
       </table>

@@ -59,5 +59,5 @@ trait DBRepo[M] {
 
   def count(implicit session: RSession): Int = Query(tableQuery.length).first
 
-  def all(implicit session: RSession): Seq[M] = tableQuery.map(t => t).list
+  def all(implicit session: RSession): List[M] = tableQuery.map(t => t).list
 }

@@ -3,7 +3,7 @@
     <h3 class="panel-title">Reports</h3>
   </div>
 
-  <table class="table table-striped table-bordered table-condensed">
+  <table class="table table-striped table-bordered table-condensed table-hover">
     <thead>
       <tr>
         <th><a href="" ng-click="sortOnClick('date')">Date <b ng-class="caret('date')"></b></a></th>
@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="report in reports | orderBy:sortBy:sortReverse" ng-href="viewReport(report.id)">
+      <tr ng-repeat="report in reports | orderBy:sortBy:sortReverse" ng-click="viewReport(report.id)" style="cursor: pointer">
         <td>{{report.date}}</td>
         <td>{{report.description}}</td>
         <td>{{report.fromDate}}</td>

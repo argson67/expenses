@@ -34,6 +34,11 @@ case class Expense(@column("id", O.PrimaryKey, O.Nullable, O.AutoInc) id: Option
     }
   }
 
+  def commit: Expense = {
+    assert(!recurring)
+    Expense(id, ownerId, date, amount, description, comment, recurring, committed = true)
+  }
+
   def frequencyNum(implicit s: RSession): Int = RecurringExpenses.getByExpenseId(id.get) map (_.frequencyNum) getOrElse 1
 
   def frequencyUnit(implicit s: RSession): Int = RecurringExpenses.getByExpenseId(id.get) map (_.frequencyUnit) getOrElse 0
@@ -130,8 +135,28 @@ object Expenses extends ModelRepo[Expense] {
     delete(id)
   }
 
-  def getRange(from: DateTime, to: DateTime)(implicit session: RSession) =
+  def getInRange(from: DateTime, to: DateTime)(implicit session: RSession) =
     (for (t <- tableQuery if !t.recurring && t.date >= from && t.date <= to) yield t).list
+
+  def getUncommittedInRange(from: DateTime, to: DateTime)(implicit session: RSession) =
+    (for (t <- tableQuery if !t.recurring && !t.committed && t.date >= from && t.date <= to) yield t).list
+
+  def getByReport(id: Id[Report])(implicit session: RSession) =
+    (for (ce <- CommittedExpenses.tableQuery if ce.reportId === id;
+           e <- tableQuery if e.id === ce.expenseId) yield e).list
+
+  def commit(report: Id[Report], expenses: List[Expense])(implicit session: RWSession): Result[List[Expense]] = {
+    expenses.foldLeft(Good(Nil): Result[List[Expense]]) { (soFar, e) =>
+      soFar flatMap { lst =>
+        Expenses.save(e.commit) flatMap { newEx =>
+          println(s"Committing expense ${newEx.id.get} to report $report")
+
+          if (CommittedExpenses.establish(CommittedExpense(newEx.id.get, report))) Good(newEx :: lst)
+          else Bad(MiscError(s"Cannot commit expense ${newEx.id.get} to report $report"))
+        }
+      }
+    }
+  }
 
   def deleteBeneficiaries(id: Id[Expense])(implicit session: RWSession) =
     ExpenseTargets.deleteBy(_.expenseId)(id)

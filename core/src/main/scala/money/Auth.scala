@@ -27,6 +27,13 @@ trait Auth extends Sessions {
     yield u
   }
 
+  def noAuth = optionalCookie(authCookieName) flatMap { cookie =>
+    result2directive(cookie match {
+      case Some(_) => Bad(AuthError("You are already logged in!"))
+      case None    => Good(())
+    })
+  }
+
   private def checkPwd(u: User, pwd: String): Result[Unit] = {
     val hash = pwd.bcrypt(u.passwordSalt)
     if (hash == u.passwordHash) Good(())
@@ -49,11 +56,13 @@ trait Auth extends Sessions {
 
   private val loginRoute = path("login") {
     post {
+      noAuth { _ =>
       val ej = extractJson[Credentials]
-      ej { creds =>
-        handleError(creds flatMap processCredentials) { case (s, u) =>
-          setCookie(HttpCookie(authCookieName, s)) {
-            complete(u.privateJson)
+        ej { creds =>
+          handleError(creds flatMap processCredentials) { case (s, u) =>
+            setCookie(HttpCookie(authCookieName, s)) {
+              complete(u.privateJson)
+            }
           }
         }
       }
@@ -79,5 +88,13 @@ trait Auth extends Sessions {
     }
   }
 
-  val authRoute = loginRoute ~ logoutRoute ~ registerRoute
+  private val whoAmI = path("whoami") {
+    get {
+      withAuth { u =>
+        complete(u.publicJson)
+      }
+    }
+  }
+
+  val authRoute = loginRoute ~ logoutRoute ~ registerRoute ~ whoAmI
 }
