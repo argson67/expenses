@@ -26,7 +26,7 @@ object DBSession {
     override def resultSetType = session.resultSetType
     override def resultSetConcurrency = session.resultSetConcurrency
     override def resultSetHoldability = session.resultSetHoldability
-    def close() { throw new UnsupportedOperationException }
+    def close() { session.close() }
     def rollback() { session.rollback() }
     def withTransaction[T](f: => T): T = session.withTransaction(f)
 

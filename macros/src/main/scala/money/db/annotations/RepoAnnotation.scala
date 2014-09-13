@@ -52,7 +52,8 @@ object RepoAnnotation {
         val newBody: List[Tree] =
           body ++ List(table, tableQuery, tableNameField, rType, holds) ++
             h.genFindBys(fields filter (_.isColumn), tableName.toTypeName) ++
-            h.genGetBys(fields filter (_.isColumn), tableName.toTypeName)
+            h.genGetBys(fields filter (_.isColumn), tableName.toTypeName) ++
+            h.genDeleteBys(fields filter (_.isColumn), tableName.toTypeName)
         val res = q"object $repoName extends ..$parents { ..$newBody }"
 
         //c1.echo(c1.enclosingPosition, s"Generated Repo:\n $res")

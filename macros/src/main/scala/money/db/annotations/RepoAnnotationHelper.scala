@@ -245,16 +245,59 @@ trait RepoAnnotationHelper {
     (colName.toTermName, colTpe)
   }
 
-  def genFindBys(cols: List[Field], modelName: TypeName): List[Tree] = getColTpes(cols) map {
+  def genFindBys(cols: List[Field], modelName: TypeName): List[Tree] = getColTpes(cols) flatMap {
     case (name, tpe) =>
       val findName = newTermName("findBy" + name.toString.capitalize)
-      q"def $findName(v: $tpe)(implicit s: RSession): List[$modelName] = findBy(_.$name)(v)"
+      val _findName = newTermName("_" + findName.toString)
+
+      // TODO: refactor
+
+      val tmp = q"tableQuery.filter(_.$name === _v)"
+
+      List(
+
+        q"""
+        private val ${_findName} = {
+          def query(_v: Column[$tpe]) = $tmp
+          Compiled(query _)
+        }""",
+        q"@inline def $findName(v: $tpe)(implicit s: RSession): List[$modelName] = ${_findName}(v).list"
+      )
   }
 
-  def genGetBys(cols: List[Field], modelName: TypeName): List[Tree] = getColTpes(cols) map {
+  def genGetBys(cols: List[Field], modelName: TypeName): List[Tree] = getColTpes(cols) flatMap {
     case (name, tpe) =>
       val getName = newTermName("getBy" + name.toString.capitalize)
-      q"def $getName(v: $tpe)(implicit s: RSession): Result[$modelName] = getBy(_.$name)(v)"
+      val _getName = newTermName("_" + getName.toString)
+
+      val tmp = q"tableQuery.filter(_.$name === _v)"
+
+      List(
+        q"""
+        private val ${_getName} = {
+          def query(_v: Column[$tpe]) = $tmp
+          println("Compiling getBy");
+          Compiled(query _)
+        }""",
+        q"""@inline  def $getName(v: $tpe)(implicit s: RSession): Result[$modelName] = ${_getName}(v).firstOption.toResult(DBError(s"Cannot find value '$$v'"))"""
+      )
+  }
+
+  def genDeleteBys(cols: List[Field], modelName: TypeName): List[Tree] = getColTpes(cols) flatMap {
+    case (name, tpe) =>
+      val deleteName = newTermName("deleteBy" + name.toString.capitalize)
+      val _deleteName = newTermName("_" + deleteName.toString)
+
+      val tmp = q"tableQuery.filter(_.$name === _v)"
+
+      List(
+        q"""
+        private val ${_deleteName} = {
+          def query(_v: Column[$tpe]) = $tmp
+          Compiled(query _)
+        }""",
+        q"@inline def $deleteName(v: $tpe)(implicit s: RSession): Int = ${_deleteName}(v).delete"
+      )
   }
 
   def genHolds(cols: List[Field], modelName: TypeName) = {

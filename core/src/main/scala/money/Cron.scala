@@ -12,7 +12,7 @@ trait Cron {
       for (expense <- Expenses.get(rec.expenseId);
            newEx   <- expense.instantiateRecurring())
       yield {
-        RecurringExpenses.deleteBy(_.expenseId)(rec.expenseId)
+        RecurringExpenses.deleteByExpenseId(rec.expenseId)
         RecurringExpense.establish(rec.update(newEx.date))
       }
     }

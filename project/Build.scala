@@ -21,6 +21,7 @@ object BuildSettings {
       "org.joda" % "joda-convert" % "1.5",
       "com.github.tototoshi" % "slick-joda-mapper_2.10" % "1.0.1",
       "org.postgresql" % "postgresql" % "9.3-1100-jdbc4", // Postgres JDBC driver
+      "com.mchange" % "c3p0" % "0.9.5-pre8",
 
       "org.json4s" %%  "json4s-native" % "3.2.4",
       "org.scalaz" %%  "scalaz-core"   % "7.1.0-M7"

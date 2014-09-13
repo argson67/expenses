@@ -56,9 +56,21 @@ object Debt extends ModelCompanion[Debt]
 @foreignKey("creditor", "creditor_fk", "creditorId", Users, "id")
 @foreignKey("report", "report_fk", "reportId", Reports, "id")
 object Debts extends ModelRepo[Debt] {
+  private val byDebtorCompiled = {
+    def query(id: Column[Id[User]]) =
+      for (d <- tableQuery if d.debtorId === id && !d.confirmed) yield d
+    Compiled(query _)
+  }
+
+  private val byCreditorCompiled = {
+    def query(id: Column[Id[User]]) =
+      for (d <- tableQuery if d.creditorId === id && !d.confirmed) yield d
+    Compiled(query _)
+  }
+
   def byDebtor(debtor: Id[User])(implicit s: RSession): List[Debt] =
-    (for (d <- tableQuery if d.debtorId === debtor && !d.confirmed) yield d).list
+    byDebtorCompiled(debtor).list
 
   def byCreditor(creditor: Id[User])(implicit s: RSession): List[Debt] =
-    (for (d <- tableQuery if d.creditorId === creditor && !d.confirmed) yield d).list
+    byCreditorCompiled(creditor).list
 }

@@ -11,19 +11,23 @@ import scala.Some
 trait ModelRepo[M <: Model[M]] extends DBRepo[M] {
   type R <: ModelTable[M]
 
-  def get(id: Id[M])(implicit s: RSession): Result[M] = getBy(_.id)(id)
+  def get(id: Id[M])(implicit s: RSession): Result[M] = {
+    val f = getBy(_.id)
+    f(id)
+  }
 
-  def page(page: Int = 0, size: Int = 20)(implicit session: RSession): Seq[M] = {
+  /*def page(page: Int = 0, size: Int = 20)(implicit session: RSession): Seq[M] = {
     val q = for {
       t <- tableQuery
     } yield t
     q.sortBy(_.id desc).drop(page * size).take(size).list
-  }
+  }*/
 
   def save(model: M)(implicit s: RWSession): Result[M] = try {
     Good(model.id match {
       case Some(id) =>
-        update(model)
+        val f = update
+        f(model)
       case None =>
         model.withId(insert(model))
     })
@@ -41,13 +45,18 @@ trait ModelRepo[M <: Model[M]] extends DBRepo[M] {
      * And this IS the right implicit (compile with -Xprint:typer to confirm).
      * Annotating the method type explicitly to localize the ``error''.
      */
-    (tableQuery.returning(tableQuery map (_.id)).insert(model)): Id[M]
+
+    tableQuery.returning(tableQuery map (_.id)).insert(model)
   }
 
-  private def update(model: M)(implicit s: RWSession) = {
-    val target = for (t <- tableQuery if t.id === model.id.get) yield t
-    val count = target.update(model)
-    assert(count == 1)
-    model
+  private def update(implicit s: RWSession): M => M = {
+    def query(id: Column[Id[M]]) = for (t <- tableQuery if t.id === id) yield t
+    val compiled = Compiled(query _)
+
+    (model: M) => {
+      val count = compiled(model.id.get).update(model)
+      assert(count == 1)
+      model
+    }
   }
 }

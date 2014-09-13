@@ -75,11 +75,22 @@ trait ExpenseRoutes {
     }
   }
 
+  private def timer[R](name: String)(block: => R): R = {
+    val t0 = System.nanoTime()
+    val result = block    // call-by-name
+    val t1 = System.nanoTime()
+    val ms = (t1 - t0) / 1000000
+    println(s"Elapsed time in '$name': $ms ms")
+    result
+  }
+
   private def doGetExpenses(fromDate: String, toDate: String): Result[JValue] = {
     DB.db.readOnly { implicit s =>
-      for (from <- parseDate(fromDate);
-           to   <- parseDate(toDate);
-           lst  <- Expenses.getInRange(from, to).map(_.publicJson).accumulate
+      for (from <- timer("parseFrom")(parseDate(fromDate));
+           to   <- timer("parseTo")(parseDate(toDate));
+           tmp1 =  timer("getInRange")(Expenses.getInRange(from, to));
+           tmp  =  timer("publicJson")(tmp1.map(_.publicJson));
+           lst  <- timer("accumulate")(tmp.accumulate)
       ) yield {
         JArray(lst)
       }

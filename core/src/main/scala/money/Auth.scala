@@ -22,7 +22,7 @@ trait Auth extends Sessions {
     for (session <- option2Result(cookie) toResult AuthError("Must be logged in");
          id      <- findLogin(session.content);
          u       <- DB.db.readOnly { implicit s =>
-           Users.get(id)
+           Users.getById(id)
          })
     yield u
   }

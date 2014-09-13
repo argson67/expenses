@@ -14,7 +14,7 @@ trait Sessions {
   private def newSession(userId: Id[User]): Result[String] = {
     val key = Random.alphanumeric.take(32).mkString
     if (sessions contains key) newSession(userId)
-    else if (isLoggedIn(userId)) Bad(s"User $userId is already logged in")
+    //else if (isLoggedIn(userId)) Bad(s"User $userId is already logged in")
     else Good(key)
   }
 

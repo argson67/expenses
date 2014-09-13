@@ -39,6 +39,8 @@
     <orderEntry type="library" name="SBT: org.joda:joda-convert:1.5" level="project" />
     <orderEntry type="library" name="SBT: com.github.tototoshi:slick-joda-mapper_2.10:1.0.1" level="project" />
     <orderEntry type="library" name="SBT: org.postgresql:postgresql:9.3-1100-jdbc4" level="project" />
+    <orderEntry type="library" name="SBT: com.mchange:c3p0:0.9.5-pre8" level="project" />
+    <orderEntry type="library" name="SBT: com.mchange:mchange-commons-java:0.2.7" level="project" />
     <orderEntry type="library" name="SBT: org.json4s:json4s-native_2.10:3.2.4" level="project" />
     <orderEntry type="library" name="SBT: org.json4s:json4s-core_2.10:3.2.4" level="project" />
     <orderEntry type="library" name="SBT: org.json4s:json4s-ast_2.10:3.2.4" level="project" />

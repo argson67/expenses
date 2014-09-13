@@ -19,6 +19,15 @@ trait DBRepo[M] {
   def tableQuery: TableQuery[R]
   def tableName: String
 
+  protected def timer[R](name: String)(block: => R): R = {
+    val t0 = System.nanoTime()
+    val result = block    // call-by-name
+    val t1 = System.nanoTime()
+    val ms = (t1 - t0) / 1000000
+    println(s"Elapsed time in '$name': $ms ms")
+    result
+  }
+
   def ddl(implicit db: Database): SchemaDescription = db.readOnly { implicit s =>
     tq2tqem(tableQuery).ddl // Dunno why IDEA can't figure out this implicit. Adding it explicitly.
   }
@@ -46,18 +55,29 @@ trait DBRepo[M] {
   }
 
   @inline
-  protected def findBy[T](c: R => Column[T])(v: T)(implicit s: RSession, ev: BaseTypedType[T]): List[M] =
-    (for (t <- tableQuery if columnExtensionMethods(c(t)) === v) yield t).list
+  protected def findBy[T](c: R => Column[T])(implicit s: RSession, ev: BaseTypedType[T]): T => List[M] = {
+    def query(_v: Column[T]) = for (t <- tableQuery if columnExtensionMethods(c(t)) === _v) yield t
+    val compiled = Compiled(query _)
+    (v: T) => compiled(v).list
+  }
 
   @inline
-  def deleteBy[T](c: R => Column[T])(v: T)(implicit s: RWSession, ev: BaseTypedType[T]): Int =
-    (for (t <- tableQuery if columnExtensionMethods(c(t)) === v) yield t).delete
+  def deleteBy[T](c: R => Column[T])(implicit s: RWSession, ev: BaseTypedType[T]): T => Int = {
+    def query(_v: Column[T]) = for (t <- tableQuery if columnExtensionMethods(c(t)) === _v) yield t
+    val compiled = Compiled(query _)
+    (v: T) => compiled(v).delete
+  }
 
   @inline
-  protected def getBy[T](c: R => Column[T])(v: T)(implicit s: RSession, ev: BaseTypedType[T]): Result[M] =
-    (for (t <- tableQuery if columnExtensionMethods(c(t)) === v) yield t).firstOption.toResult(DBError(s"Cannot find value '$v'"))
+  protected def getBy[T](c: R => Column[T])(implicit s: RSession, ev: BaseTypedType[T]): T => Result[M] = {
+    def query(_v: Column[T]) = for (t <- tableQuery if columnExtensionMethods(c(t)) === _v) yield t
+    val compiled = Compiled(query _)
+    (v: T) => compiled(v).firstOption.toResult(DBError(s"Cannot find value '$v'"))
+  }
 
-  def count(implicit session: RSession): Int = Query(tableQuery.length).first
+  def count(implicit session: RSession): Int = Compiled(Query(tableQuery.length)).first
 
-  def all(implicit session: RSession): List[M] = tableQuery.map(t => t).list
+  private lazy val compiledAll = Compiled(tableQuery.map(t => t))
+
+  def all(implicit session: RSession): List[M] = compiledAll.list
 }

@@ -28,9 +28,10 @@ case class Expense(@column("id", O.PrimaryKey, O.Nullable, O.AutoInc) id: Option
 
   def beneficiaryIds(implicit s: RSession): List[Id[User]] = ExpenseTargets.findByExpenseId(id.get) map (_.targetId)
 
-  def beneficiaries(implicit s: RSession): Result[List[User]] = beneficiaryIds.foldLeft(Good(List.empty[User]): Result[List[User]]) { (soFar, e) =>
-    soFar flatMap { lst =>
-      Users.getById(e) map (_ :: lst)
+  def beneficiaries(implicit s: RSession): List[User] = {
+    id match {
+      case Some(id) => Expense.beneficiariesQuery(id).list
+      case None     => Nil
     }
   }
 
@@ -43,18 +44,26 @@ case class Expense(@column("id", O.PrimaryKey, O.Nullable, O.AutoInc) id: Option
 
   def frequencyUnit(implicit s: RSession): Int = RecurringExpenses.getByExpenseId(id.get) map (_.frequencyUnit) getOrElse 0
 
+  private def timer[R](name: String)(block: => R): R = {
+    val t0 = System.nanoTime()
+    val result = block    // call-by-name
+    val t1 = System.nanoTime()
+    val ms = (t1 - t0) / 1000000
+    println(s"Elapsed time in '$name': $ms ms")
+    result
+  }
+
   def publicJson(implicit s: RSession): Result[JObject] =
-    for (owner <- Users.getById(ownerId);
-         bens  <- beneficiaries) yield {
+    for (owner <- timer("getOwner")(Users.getById(ownerId))) yield {
       ("id" -> id) ~
-      ("owner" -> owner.publicJson) ~
+      ("owner" -> timer("owner.publicJson")(owner.publicJson)) ~
       ("date" -> date.toJson) ~
       ("amount" -> amount) ~
       ("description" -> description) ~
       ("comment" -> comment) ~
       ("recurring" -> recurring) ~
       ("committed" -> committed) ~
-      ("beneficiaries" -> (bens map (_.publicJson))) ~
+      ("beneficiaries" -> timer("bens")(beneficiaries map (_.publicJson))) ~
       ("frequencyNum" -> frequencyNum) ~
       ("frequencyUnit" -> frequencyUnit)
     }
@@ -98,7 +107,24 @@ case class Expense(@column("id", O.PrimaryKey, O.Nullable, O.AutoInc) id: Option
   }
 }
 
-object Expense extends ModelCompanion[Expense]
+object Expense extends ModelCompanion[Expense] {
+  private def timer[R](name: String)(block: => R): R = {
+    val t0 = System.nanoTime()
+    val result = block    // call-by-name
+    val t1 = System.nanoTime()
+    val ms = (t1 - t0) / 1000000
+    println(s"Elapsed time in '$name': $ms ms")
+    result
+  }
+
+  val beneficiariesQuery = {
+    timer("compiling bensQuery"){
+      def query(id: Column[Id[Expense]]) = for (bi <- ExpenseTargets.tableQuery if bi.expenseId === id;
+                       b  <- Users.tableQuery if b.id === bi.targetId) yield b
+      Compiled(query _)
+    }
+  }
+}
 
 @repo[Expense]("expenses")
 @foreignKey("owner", "owner_fk", "ownerId", Users, "id")
@@ -135,15 +161,36 @@ object Expenses extends ModelRepo[Expense] {
     delete(id)
   }
 
+  private val getInRangeCompiled = {
+    def query(from: Column[DateTime], to: Column[DateTime]) =
+      for (t <- tableQuery if !t.recurring && t.date >= from && t.date <= to) yield t
+    Compiled(query _)
+  }
+
+  @inline
   def getInRange(from: DateTime, to: DateTime)(implicit session: RSession) =
-    (for (t <- tableQuery if !t.recurring && t.date >= from && t.date <= to) yield t).list
+    getInRangeCompiled(from, to).list
 
+  private val getUncommittedInRangeCompiled = {
+    def query(from: Column[DateTime], to: Column[DateTime]) =
+      for (t <- tableQuery if !t.recurring && !t.committed && t.date >= from && t.date <= to) yield t
+    Compiled(query _)
+  }
+
+  @inline
   def getUncommittedInRange(from: DateTime, to: DateTime)(implicit session: RSession) =
-    (for (t <- tableQuery if !t.recurring && !t.committed && t.date >= from && t.date <= to) yield t).list
+    getUncommittedInRangeCompiled(from, to).list
 
+  private val getByReportCompiled = {
+    def query(id: Column[Id[Report]]) =
+      for (ce <- CommittedExpenses.tableQuery if ce.reportId === id;
+           e <- tableQuery if e.id === ce.expenseId) yield e
+    Compiled(query _)
+  }
+
+  @inline
   def getByReport(id: Id[Report])(implicit session: RSession) =
-    (for (ce <- CommittedExpenses.tableQuery if ce.reportId === id;
-           e <- tableQuery if e.id === ce.expenseId) yield e).list
+    getByReportCompiled(id).list
 
   def commit(report: Id[Report], expenses: List[Expense])(implicit session: RWSession): Result[List[Expense]] = {
     expenses.foldLeft(Good(Nil): Result[List[Expense]]) { (soFar, e) =>
@@ -159,11 +206,17 @@ object Expenses extends ModelRepo[Expense] {
   }
 
   def deleteBeneficiaries(id: Id[Expense])(implicit session: RWSession) =
-    ExpenseTargets.deleteBy(_.expenseId)(id)
+    ExpenseTargets.deleteByExpenseId(id)
 
   def deleteRecurring(id: Id[Expense])(implicit session: RWSession) =
-    RecurringExpenses.deleteBy(_.expenseId)(id)
+    RecurringExpenses.deleteByExpenseId(id)
+
+  // TODO: investigate why this has to be lazy
+  private lazy val recurringCompiled = {
+    val query = tableQuery.filter(_.recurring)
+    Compiled(query)
+  }
 
   def recurring(implicit session: RSession) =
-    (for (t <- tableQuery if t.recurring) yield t).list
+    recurringCompiled.list
 }
