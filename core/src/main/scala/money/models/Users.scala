@@ -39,6 +39,9 @@ object User extends ModelCompanion[User]
 @index("login_idx", "login", unique = true)
 @index("email_idx", "email", unique = true)
 object Users extends ModelRepo[User] {
-  def active(implicit s: ROSession) =
-    (for (u <- this.tableQuery if u.active === true) yield u).list
+  lazy val activeCompiled =
+    Compiled(tableQuery.filter(_.active))
+
+  def active(implicit s: RSession) =
+    activeCompiled.list
 }

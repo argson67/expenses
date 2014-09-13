@@ -17,7 +17,10 @@ trait UserRoutes {
 
   val activeUsers = path("activeUsers") {
     def inner = DB.db.readOnly { implicit s =>
-      complete(JArray(Users.active map (_.publicJson)))
+      val res = Users.active map (_.publicJson)
+      // Don't do the action inside complete
+      // Because... I don't fucking know, but it leaks DB connections and that's BAD
+      complete(JArray(res))
     }
     // Need to wrap inner inside a lambda to force recalculation on each request
     (get | post).apply(ctx => inner(ctx))

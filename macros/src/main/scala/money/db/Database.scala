@@ -50,7 +50,15 @@ class SlickSessionProviderImpl extends SlickSessionProvider /*with Logger*/ {
   }
 }
 
-class Database(val db: SlickDatabase, val sessionProvider: SlickSessionProvider = new SlickSessionProviderImpl) /*extends Logger*/ {
+import com.mchange.v2.c3p0.ComboPooledDataSource
+
+class Database(val db: SlickDatabase, val ds: ComboPooledDataSource, val sessionProvider: SlickSessionProvider = new SlickSessionProviderImpl) /*extends Logger*/ {
+  def stats: Unit = {
+    println(s"# connections: ${ds.getNumConnections}")
+    println(s"# busy connections: ${ds.getNumBusyConnections}")
+    println(s"# idle connections: ${ds.getNumIdleConnections}")
+  }
+
   def readOnlyAsync[T](f: ROSession => T): Future[T] = future {
     readOnly(f)
   }
@@ -66,8 +74,17 @@ class Database(val db: SlickDatabase, val sessionProvider: SlickSessionProvider 
   def readOnly[T](f: ROSession => T): T = {
     val s = sessionProvider.getReadOnlySession(db)
     try {
-      f(s)
-    } finally s.close()
+      val res = f(s)
+      //stats
+      //println(s"readonly, result: $res")
+      res
+    } finally {
+      println("Before:")
+      stats
+      s.close()
+      println("After:")
+      stats
+    }
   }
 
   def readWrite[T](f: RWSession => Result[T]): Result[T] = {
@@ -75,7 +92,10 @@ class Database(val db: SlickDatabase, val sessionProvider: SlickSessionProvider 
     try {
       s.withTransaction {
         f(s) match {
-          case Good(res) => Good(res)
+          case Good(res) =>
+            //stats
+            //println(s"readwrite, result: $res")
+            Good(res)
           case Bad(err)  =>
             s.rollback()
             Bad(err)

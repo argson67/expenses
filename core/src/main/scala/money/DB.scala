@@ -16,9 +16,11 @@ object DB {
   cpds.setMinPoolSize(5)
   cpds.setAcquireIncrement(5)
   cpds.setMaxPoolSize(20)
+  cpds.setMaxStatements(200)
+  cpds.setMaxStatementsPerConnection(20)
 
   val slickDB = SlickDatabase.forDataSource(cpds)
-  implicit val db = new Database(slickDB)
+  implicit val db = new Database(slickDB, cpds)
 
   val tables: Map[String, DBRepo[_]] =
     List(Users, Debts, Expenses, Reports, ExpenseTargets, RecurringExpenses, CommittedExpenses).map(t => t.tableName -> t).toMap
