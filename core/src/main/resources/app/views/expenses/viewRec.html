@@ -24,7 +24,7 @@
         <!-- <td><a ng-click="deleteExpense(expense)" href="" ng-show="user.admin || user.id == expense.owner.id"><b class="fa fa-trash-o"></b></a></td> -->
         <td>{{expense.frequency}}</td>
         <td>{{expense.owner.name}}</td>
-        <td>{{expense.amount}}</td>
+        <td>{{expense.amount | currency}}</td>
         <td>{{expense.description}}</td>
         <td>{{expense.comment}}</td>
         <td>{{expense.beneficiaries}}</td>

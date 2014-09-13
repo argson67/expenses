@@ -20,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="debt in myDebts | orderBy:mySortBy:mySortReverse">
+          <tr ng-repeat="debt in myDebts | orderBy:mySortBy:mySortReverse" ng-class="rowClass(debt)">
             <td class="iconCol">
               <a href="" ng-hide="debt.paid" ng-click="payDebt(debt)"><b class="fa fa-money"></b></a>
               <b class="fa fa-money" ng-show="debt.paid"></b>
@@ -29,7 +29,7 @@
               <b class="fa fa-check" ng-show="debt.confirmed"></b>
             </td>
             <td>{{debt.creditor.name}}</td>
-            <td>{{debt.amount}}</td>
+            <td>{{debt.amount | currency}}</td>
             <td><a ng-href="#/reports/view/{{debt.report.id}}">{{debt.report.date}}</a></td>
           </tr>
         </tbody>
@@ -52,7 +52,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="debt in otherDebts | orderBy:otherSortBy:otherSortReverse">
+          <tr ng-repeat="debt in otherDebts | orderBy:otherSortBy:otherSortReverse" ng-class="rowClass(debt)">
             <td class="iconCol">
               <b class="fa fa-money" ng-show="debt.paid"></b>
             </td>
@@ -61,7 +61,7 @@
               <b class="fa fa-check" ng-show="debt.confirmed"></b>
             </td>
             <td>{{debt.debtor.name}}</td>
-            <td>{{debt.amount}}</td>
+            <td>{{debt.amount | currency}}</td>
             <td><a ng-href="#/reports/view/{{debt.report.id}}">{{debt.report.date}}</a></td>
           </tr>
         </tbody>

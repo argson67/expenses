@@ -48,7 +48,7 @@ trait DebtRoutes {
   val getDebtsByDebtor = path("debtor" / IntNumber) { id =>
     get {
       DB.db.readOnly { implicit s =>
-        handleError(Debts.findByDebtorId(Id[User](id)).map(_.publicJson).accumulate) { res =>
+        handleError(Debts.byDebtor(Id[User](id)).map(_.publicJson).accumulate) { res =>
           complete(JArray(res))
         }
       }
@@ -58,7 +58,7 @@ trait DebtRoutes {
   val getDebtsByCreditor = path("creditor" / IntNumber) { id =>
     get {
       DB.db.readOnly { implicit s =>
-        handleError(Debts.findByCreditorId(Id[User](id)).map(_.publicJson).accumulate) { res =>
+        handleError(Debts.byCreditor(Id[User](id)).map(_.publicJson).accumulate) { res =>
           complete(JArray(res))
         }
       }

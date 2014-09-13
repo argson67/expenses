@@ -54,6 +54,7 @@
         </ul>
         <!-- Post-login stuff -->
         <ul class="nav nav-pills pull-right" bs-navbar ng-show="user.id">
+          <li data-match-route="/debts"><a ng-href="#/debts">Debts</a></li>
           <li data-match-route="/expenses" class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown">Expenses <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -70,7 +71,6 @@
               <li><a ng-href="#/reports/generate">Generate</a></li>
             </ul>
           </li>
-          <li data-match-route="/debts"><a ng-href="#/debts">Debts</a></li>
           <li><a href="" ng-click="logout()">Logout</a></li>
         </ul>
         <ul class="nav nav-pills pull-right" bs-navbar ng-show="user.id && user.admin">
@@ -82,9 +82,9 @@
           </li>
         </ul>
         <!-- Common stuff -->
-        <ul class="nav nav-pills pull-right" bs-navbar>
+        <!--<ul class="nav nav-pills pull-right" bs-navbar>
           <li data-match-route="/$"><a ng-href="#">Home</a></li>
-        </ul>
+        </ul> -->
         <div ng-show="user.id">
           Hello, {{user.name}}
         </div>
@@ -117,6 +117,7 @@
     <!-- <script src="bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> -->
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-money-directive/angular-money-directive.js"></script>
     <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
     <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
     <!-- endbower -->

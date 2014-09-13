@@ -277,6 +277,8 @@ angular.module('moneyApp')
     $scope.rowClass = function (debt) {
       if (debt.confirmed && (debt.debtor.id == userSrv.user.id || debt.creditor.id == userSrv.user.id)) {
         return "info";
+      } else if (debt.paid && (debt.debtor.id == userSrv.user.id || debt.creditor.id == userSrv.user.id)) {
+        return "warning";
       } else if (debt.debtor.id == userSrv.user.id) {
         return "danger";
       } else if (debt.creditor.id == userSrv.user.id) {
@@ -289,12 +291,26 @@ angular.module('moneyApp')
     mkSort($scope, "date", "ex");
     mkSort($scope, "creditor.name", "db");
   })
-  .controller('DebtsCtrl', function ($scope, debtsSrv) {
+  .controller('DebtsCtrl', function ($scope, userSrv, debtsSrv) {
     $scope.myDebts = debtsSrv.myDebts;
     $scope.otherDebts = debtsSrv.otherDebts;
 
     $scope.payDebt = debtsSrv.payDebt;
     $scope.confirmDebt = debtsSrv.confirmDebt;
+
+    $scope.rowClass = function (debt) {
+      if (debt.confirmed && (debt.debtor.id == userSrv.user.id || debt.creditor.id == userSrv.user.id)) {
+        return "info";
+      } else if (debt.paid && (debt.debtor.id == userSrv.user.id || debt.creditor.id == userSrv.user.id)) {
+        return "warning";
+      } else if (debt.debtor.id == userSrv.user.id) {
+        return "danger";
+      } else if (debt.creditor.id == userSrv.user.id) {
+        return "success";
+      } else {
+        return "";
+      }
+    };
 
     $scope.$on('$routeChangeSuccess', function () {
       debtsSrv.getDebts();

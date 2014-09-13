@@ -11,6 +11,7 @@ case class ExpenseData(id: Option[Id[Expense]],
                        description: String,
                        comment: String,
                        recurring: Boolean,
+                       date: Option[DateTime],
                        frequencyNum: Int,
                        frequencyUnit: Int,
                        beneficiaries: List[Id[User]])

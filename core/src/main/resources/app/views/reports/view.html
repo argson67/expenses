@@ -24,7 +24,7 @@
           <tr ng-repeat="expense in expenses | orderBy:exSortBy:exSortReverse">
             <td>{{expense.date}}</td>
             <td>{{expense.owner.name}}</td>
-            <td>{{expense.amount}}</td>
+            <td>{{expense.amount | currency}}</td>
             <td>{{expense.description}}</td>
             <td>{{expense.comment}}</td>
             <td>{{expense.beneficiaries}}</td>
@@ -61,7 +61,7 @@
             </td>
             <td>{{debt.creditor.name}}</td>
             <td>{{debt.debtor.name}}</td>
-            <td>{{debt.amount}}</td>
+            <td>{{debt.amount | currency}}</td>
           </tr>
         </tbody>
       </table>

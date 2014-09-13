@@ -17,7 +17,10 @@ trait ExpenseRoutes {
 
   private def doCreateExpense(data: ExpenseData) = {
     DB.db.readWrite { implicit s =>
-      val date = DateTime.now() //if (data.recurring) null else DateTime.now()
+      val date = data.date.getOrElse(DateTime.now())
+
+      println(s"Create expense request: $data")
+
       val ex = Expense(None, data.ownerId, date, data.amount, data.description, data.comment, data.recurring, committed = false)
       val newEx = Expense.save(ex)
 
@@ -34,7 +37,11 @@ trait ExpenseRoutes {
         if (oldEx.committed) {
           Bad(MiscError("You cannot edit a committed expense"))
         } else {
-          val ex = Expense(Some(id), data.ownerId, oldEx.date, data.amount, data.description, data.comment, data.recurring, oldEx.committed)
+          val date = data.date.getOrElse(oldEx.date)
+
+          println(s"Edit expense request: $data")
+
+          val ex = Expense(Some(id), data.ownerId, date, data.amount, data.description, data.comment, data.recurring, oldEx.committed)
           val newEx = Expense.save(ex)
           newEx flatMap { e =>
             if (!Expenses.updateBeneficiaries(e, data.beneficiaries)) Bad(MiscError("Error updating expense beneficiaries"))

@@ -4,14 +4,14 @@ angular
   .module('moneyApp', [
     'ngResource',
     'ngRoute',
-    'mgcrea.ngStrap'
+    'mgcrea.ngStrap',
+    'fiestah.money'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        publicAccess: true
+        loggedIn: '/debts',
+        loggedOut: '/login'
       })
       .when('/login', {
         templateUrl: 'views/login.html',
@@ -71,15 +71,22 @@ angular
     userSrv.checkActiveLogin();
 
     $rootScope.$on('$routeChangeStart', function (event, nextLoc, currentLoc) {
-      console.log("nextLoc: " + JSON.stringify(nextLoc));
-      var closedToPublic = nextLoc.$$route && !nextLoc.$$route.publicAccess;
-      if (closedToPublic) {
-        userSrv.checkActiveLogin(function () { },
-          function () {
-            if (!userSrv.user.id) {
-              $location.path('/login');
-            }
-          });
+      if (nextLoc.$$route && nextLoc.loggedIn && nextLoc.loggedOut) {
+        userSrv.checkActiveLogin(function () {
+          $location.path(nextLoc.loggedIn);
+        }, function () {
+          $location.path(nextLoc.loggedOut);
+        });
+      } else {
+        var closedToPublic = nextLoc.$$route && !nextLoc.$$route.publicAccess;
+        if (closedToPublic) {
+          userSrv.checkActiveLogin(null,
+            function () {
+              if (!userSrv.user.id) {
+                $location.path('/login');
+              }
+            });
+        }
       }
     });
   });

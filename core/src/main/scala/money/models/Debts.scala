@@ -55,4 +55,10 @@ object Debt extends ModelCompanion[Debt]
 @foreignKey("debtor", "debtor_fk", "debtorId", Users, "id")
 @foreignKey("creditor", "creditor_fk", "creditorId", Users, "id")
 @foreignKey("report", "report_fk", "reportId", Reports, "id")
-object Debts extends ModelRepo[Debt]
+object Debts extends ModelRepo[Debt] {
+  def byDebtor(debtor: Id[User])(implicit s: RSession): List[Debt] =
+    (for (d <- tableQuery if d.debtorId === debtor && !d.confirmed) yield d).list
+
+  def byCreditor(creditor: Id[User])(implicit s: RSession): List[Debt] =
+    (for (d <- tableQuery if d.creditorId === creditor && !d.confirmed) yield d).list
+}

@@ -91,7 +91,7 @@ case class Expense(@column("id", O.PrimaryKey, O.Nullable, O.AutoInc) id: Option
     if (!recurring || committed) {
       Bad(MiscError("Cannot instantiate non-recurring expense"))
     } else {
-      val newEx = Expense(None, ownerId, DateTime.now(), amount, description, comment, recurring = false, committed = false)
+      val newEx = Expense(None, ownerId, DateTime.now(), amount, description + " (recurring)", comment, recurring = false, committed = false)
       for (saved <- Expense.save(newEx);
            _     <- saved.addBeneficiaries(beneficiaryIds)) yield saved
     }

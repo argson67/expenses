@@ -48,6 +48,10 @@ function mkDebt(service, $http, userSrv, errSrv) {
       $http.post("api/debts/confirm/" + debt.id)
       .then(function (response) {
         debt.confirmed = true;
+        if (debt.lst) {
+          var i = debt.lst.findIndex(function (d) { return d.id == debt.id });
+          debt.lst.splice(i, 1);
+        }
       }, function (err) {
         errSrv.emit(err.data);
       });
@@ -210,22 +214,28 @@ angular.module('moneyApp')
 
     return service;
   })
-  .factory('expenseSrv', function ($http, errSrv, userSrv, redirectSrv) {
+  .factory('expenseSrv', function ($http, $filter, errSrv, userSrv, redirectSrv) {
     var service = {};
 
     service.state = { addOrEdit: "Add", errLoading: false };
 
     service.expense = { }
 
-    service.defaultExpense = function () {
+    service.defaultExpense = function (rec) {
+      var date = null;
+
+      if (!rec) {
+        date = new Date();
+      }
+
       var res = {
         id: null,
         owner: userSrv.user,
-        date: null,
-        amount: 0.0,
+        date: date,
+        amount: 0.01,
         description: "description",
         comment: "comment",
-        recurring: false,
+        recurring: rec,
         frequencyNum: 1,
         frequencyUnit: 0,
         beneficiaries: userSrv.activeUsers.map(function (au) { return $.extend({ selected: true }, au); }),
@@ -238,8 +248,7 @@ angular.module('moneyApp')
     };
 
     service.reset = function (rec) {
-      $.extend(service.expense, service.defaultExpense());
-      service.expense.recurring = rec;
+      $.extend(service.expense, service.defaultExpense(rec));
       service.state.errLoading = false;
       service.state.addOrEdit = "Add";
     };
@@ -281,6 +290,14 @@ angular.module('moneyApp')
         } else {
           service.state.errLoading = false;
           $.extend(service.expense, response.data);
+          if (service.expense.date) {
+            //
+            var ms = Date.parse(service.expense.date);
+
+            service.expense.date = new Date(ms + new Date().getTimezoneOffset() * 60000);
+          }
+          // TODO: Fix the comma thing properly
+          service.expense.amount = $filter('currency')(service.expense.amount, "").replace(",", "");
           service.expense.beneficiaries = userSrv.activeUsers.map(function (au) {
             var isBen = service.expense.beneficiaries.filter(function (ben) { return au.id == ben.id; }).length == 1;
             return $.extend({ selected: isBen }, au);
@@ -302,10 +319,14 @@ angular.module('moneyApp')
       }
 
       var ex = service.expense;
+      var newDate = null;
+      if (ex.date) {
+        newDate = $filter('date')(ex.date, "yyyy-MM-dd");
+      }
       var data = {
         id: ex.id,
         ownerId: ex.owner.id,
-        date: ex.date,
+        date: newDate,
         amount: parseFloat(ex.amount).toFixed(2),
         description: ex.description,
         comment: ex.comment,
@@ -405,11 +426,8 @@ angular.module('moneyApp')
               errSrv.emit("You do not delete a committed expense.");
             } else {
               $http.delete('api/expense/' + expense.id).then(function (response) {
-                service.expenses.forEach(function (value, index) {
-                  if (value.id == expense.id) {
-                    service.expenses.splice(index, 1);
-                  }
-                });
+                var i = service.expenses.findIndex(function (e) { return e.id == expense.id });
+                service.expenses.splice(i, 1);
               }, function (err) {
                 errSrv.emit(err.data);
               });
@@ -591,12 +609,14 @@ angular.module('moneyApp')
 
     service.populateMyDebts = function (data) {
       data.forEach(function (debt) {
+        debt.lst = service.myDebts;
         service.myDebts.push(debt);
       });
     };
 
     service.populateOtherDebts = function (data) {
       data.forEach(function (debt) {
+        debt.lst = service.otherDebts;
         service.otherDebts.push(debt);
       });
     };
