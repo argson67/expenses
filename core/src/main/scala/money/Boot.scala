@@ -16,6 +16,5 @@ class Boot extends WebBoot with Cron {
   val serviceActor = system.actorOf(Props[MoneyServiceActor])
 
   import ExecutionContext.Implicits.global
-  val cron = system.scheduler.schedule(0.second, 5.minute)(checkRecurring())
-  println(s"Cron isCancelled: ${cron.isCancelled}")
+  system.scheduler.schedule(0.second, 5.minute)(checkRecurring())
 }

@@ -34,6 +34,7 @@ object JsonMacros {
     }
 
     val readImpl = q"for (..$enums) yield new $tpe(..${consParams map (_.name)})"
+
     val _read = q"val _read: PartialFunction[JValue, Result[$tpe]] = { case jo: JObject => $readImpl }"
     val fields = consParams map { param =>
       val nameTree = Literal(Constant(param.name.toString))
@@ -54,7 +55,7 @@ object JsonMacros {
         new JsonFormat[${tpe.typeSymbol}] { $typeName; ${_read}; $write }
       }"""
 
-    //c.echo(c.enclosingPosition, s"Result: ${show(res)}")
+    c.echo(c.enclosingPosition, s"Result: ${show(res)}")
 
     c.Expr[JsonFormat[T]](res)
   }

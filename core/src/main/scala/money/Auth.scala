@@ -1,5 +1,9 @@
 package money
 
+import scala.concurrent.duration._
+
+import org.joda.time.DateTime
+
 import money.errors._
 import money.json._
 import money.data._
@@ -24,7 +28,7 @@ trait Auth extends Sessions {
          u       <- DB.db.readOnly { implicit s =>
            Users.getById(id)
          })
-    yield u
+    yield timer("withAuth")(u)
   }
 
   def noAuth = optionalCookie(authCookieName) flatMap { cookie =>
@@ -40,11 +44,11 @@ trait Auth extends Sessions {
     else Bad(AuthError(s"Incorrect password for user '${u.name}'"))
   }
 
-  private def processCredentials(creds: Credentials): Result[(String, User)] =
+  private def processCredentials(expirationDate: DateTime)(creds: Credentials): Result[(String, User)] =
     DB.db.readOnly { implicit s =>
       for (u <- Users.getByLogin(creds.username);
            _ <- checkPwd(u, creds.password);
-           s <- createSession(u.id.get))
+           s <- createSession(u.id.get, expirationDate))
       yield (s, u)
     }
 
@@ -59,8 +63,10 @@ trait Auth extends Sessions {
       noAuth { _ =>
       val ej = extractJson[Credentials]
         ej { creds =>
-          handleError(creds flatMap processCredentials) { case (s, u) =>
-            setCookie(HttpCookie(authCookieName, s)) {
+          val expirationDate = DateTime.now().withDurationAdded(1.day.toMillis, 30)
+          val cookieDate = spray.http.DateTime(expirationDate.getMillis)
+          handleError(creds flatMap processCredentials(expirationDate)) { case (s, u) =>
+            setCookie(HttpCookie(authCookieName, s, Some(cookieDate))) {
               complete(u.privateJson)
             }
           }

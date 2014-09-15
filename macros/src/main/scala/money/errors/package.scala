@@ -5,13 +5,14 @@ import scalaz._
 
 import scala.language.implicitConversions
 import scala.language.higherKinds
+import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
 package object errors {
-  type Result[+T] = \/[Error, T]
+  case class MiscError(msg: String) extends Error
+
+  /*type Result[+T] = \/[Error, T]
   type Good[+T] = \/-[T]
   type Bad = -\/[Error]
-
-  case class MiscError(msg: String) extends Error
 
   object Bad {
     def apply(e: Error) = -\/(e)
@@ -22,6 +23,46 @@ package object errors {
   object Good {
     def apply[T](v: T): Good[T] = \/-(v)
     def unapply[T](g: Good[T]): Option[T] = Some(g.b)
+  }*/
+
+  sealed abstract class Result[+A] {
+    def get: A
+    def map[B](f: A => B): Result[B]
+    def flatMap[B](f: A => Result[B]): Result[B]
+    def foreach(f: A => Unit): Unit
+    def fold[B](fBad: Error => B, fGood: A => B): B
+    def getOrElse[U >: A](default: => U): U
+  }
+
+  case class Good[+A](get: A) extends Result[A] {
+    @inline
+    def map[B](f: A => B): Result[B] = Good(f(get))
+    @inline
+    def flatMap[B](f: A => Result[B]) = f(get)
+    @inline
+    def foreach(f: A => Unit): Unit = f(get)
+    @inline
+    def fold[B](fBad: Error => B, fGood: A => B) = fGood(get)
+    @inline
+    def getOrElse[U >: A](default: => U): U = get
+  }
+
+  case class Bad(err: Error) extends Result[Nothing] {
+    def get = throw new NotImplementedException
+    @inline
+    def map[B](f: Nothing => B): Result[B] = this
+    @inline
+    def flatMap[B](f: Nothing => Result[B]): Result[B] = this
+    @inline
+    def foreach(f: Nothing => Unit): Unit = ()
+    @inline
+    def fold[B](fBad: Error => B, fGood: Nothing => B) = fBad(err)
+    @inline
+    def getOrElse[U >: Nothing](default: => U): U = default
+  }
+
+  object Bad {
+    def apply(msg: String): Bad = Bad(MiscError(msg))
   }
 
   implicit def error2Result[T](err: Error): Result[T] = Bad(err)

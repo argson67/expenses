@@ -14,10 +14,20 @@ trait JsonFormat[T] {
 
   def notFound(field: String): Result[T] = Bad(MissingField(field))
 
+  @inline
   def read(jv: JValue): Result[T] = if (_read.isDefinedAt(jv)) {
-    _read(jv)
+    timer(s"reading $jv")(_read(jv))
   } else {
     WrongJsonTypeError(typeName, jv)
+  }
+
+  protected def timer[R](name: String)(block: => R): R = {
+    val t0 = System.nanoTime()
+    val result = block    // call-by-name
+    val t1 = System.nanoTime()
+    val ms = (t1 - t0) / 1000000
+    println(s"Elapsed time in '$name': $ms ms")
+    result
   }
 
   protected def _read: PartialFunction[JValue, Result[T]]

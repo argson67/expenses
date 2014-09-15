@@ -24,6 +24,15 @@ package object json {
   }
 
   implicit class JValueFinder(jv: JValue) {
+    private def timer[R](name: String)(block: => R): R = {
+      val t0 = System.nanoTime()
+      val result = block    // call-by-name
+      val t1 = System.nanoTime()
+      val ms = (t1 - t0) / 1000000
+      println(s"Elapsed time in '$name': $ms ms")
+      result
+    }
+
     def select[T: JsonFormat](name: String): Result[T] = jv match {
       case JObject(fields) =>
         fields find (_._1 == name) map { f =>

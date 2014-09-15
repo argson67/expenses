@@ -71,37 +71,46 @@ class Database(val db: SlickDatabase, val ds: ComboPooledDataSource, val session
     readWrite(attempts)(f)
   }
 
+  private def timer[R](name: String)(block: => R): R = {
+    val t0 = System.nanoTime()
+    val result = block    // call-by-name
+    val t1 = System.nanoTime()
+    val ms = (t1 - t0) / 1000000
+    println(s"Elapsed time in '$name': $ms ms")
+    result
+  }
+
   def readOnly[T](f: ROSession => T): T = {
-    val s = sessionProvider.getReadOnlySession(db)
-    try {
-      val res = f(s)
-      //stats
-      //println(s"readonly, result: $res")
-      res
-    } finally {
-      println("Before:")
-      stats
-      s.close()
-      println("After:")
-      stats
+    val s = timer("getROSession")(sessionProvider.getReadOnlySession(db))
+    timer("readWrite") {
+      try {
+        val res = f(s)
+        //stats
+        //println(s"readonly, result: $res")
+        res
+      } finally {
+        s.close()
+      }
     }
   }
 
   def readWrite[T](f: RWSession => Result[T]): Result[T] = {
-    val s = sessionProvider.getReadWriteSession(db)
-    try {
-      s.withTransaction {
-        f(s) match {
-          case Good(res) =>
-            //stats
-            //println(s"readwrite, result: $res")
-            Good(res)
-          case Bad(err)  =>
-            s.rollback()
-            Bad(err)
+    val s = timer("getRWSession")(sessionProvider.getReadWriteSession(db))
+    timer("readWrite") {
+      try {
+        s.withTransaction {
+          f(s) match {
+            case Good(res) =>
+              //stats
+              //println(s"readwrite, result: $res")
+              Good(res)
+            case Bad(err)  =>
+              s.rollback()
+              Bad(err)
+          }
         }
-      }
-    } finally s.close()
+      } finally s.close()
+    }
   }
 
   def readWrite[T](attempts: Int)(f: RWSession => Result[T]): Result[T] = {

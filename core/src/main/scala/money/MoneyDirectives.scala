@@ -59,5 +59,5 @@ trait MoneyDirectives {
   def handleError[T](res: Result[T]): Directive1[T] = res
 
   def extractJson[T: JsonFormat]: Directive1[Result[T]] =
-    entity(as[JValue]) map fromJson[T]
+    entity(as[JValue]) map { x => timer("extractJson")(fromJson[T](x)) }
 }

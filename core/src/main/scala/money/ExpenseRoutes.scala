@@ -11,6 +11,7 @@ import money.json._
 import money.json.JsonMacros._
 import money.json.JsonFormat._
 import org.json4s.JsonAST.{JArray, JValue}
+import spray.http.{HttpResponse, HttpRequest}
 
 trait ExpenseRoutes {
   self: MoneyService =>
@@ -32,21 +33,23 @@ trait ExpenseRoutes {
 
   private def doEditExpense(id: Id[Expense])(data: ExpenseData): Result[Id[Expense]] = {
     DB.db.readWrite { implicit s =>
-      val oldExRes: Result[Expense] = Expenses.getById(id)
-      oldExRes flatMap { oldEx: Expense =>
-        if (oldEx.committed) {
-          Bad(MiscError("You cannot edit a committed expense"))
-        } else {
-          val date = data.date.getOrElse(oldEx.date)
+      timer("editExpense:readWrite") {
+        val oldExRes: Result[Expense] = timer("expenses:getbyid")(Expenses.getById(id))
+        oldExRes flatMap { oldEx: Expense =>
+          if (oldEx.committed) {
+            Bad(MiscError("You cannot edit a committed expense"))
+          } else {
+            val date = data.date.getOrElse(oldEx.date)
 
-          println(s"Edit expense request: $data")
+            println(s"Edit expense request: $data")
 
-          val ex = Expense(Some(id), data.ownerId, date, data.amount, data.description, data.comment, data.recurring, oldEx.committed)
-          val newEx = Expense.save(ex)
-          newEx flatMap { e =>
-            if (!Expenses.updateBeneficiaries(e, data.beneficiaries)) Bad(MiscError("Error updating expense beneficiaries"))
-            else if (!Expenses.updateRecurring(e, data.frequencyNum, data.frequencyUnit)) Bad(MiscError("Error updating recurring expense"))
-            else Good(e.id.get)
+            val ex = Expense(Some(id), data.ownerId, date, data.amount, data.description, data.comment, data.recurring, oldEx.committed)
+            val newEx = timer("Saving expenses")(Expense.save(ex))
+            newEx flatMap { e =>
+              if (!timer("updateBens")(Expenses.updateBeneficiaries(e, data.beneficiaries))) Bad(MiscError("Error updating expense beneficiaries"))
+              else if (!timer("updateRec")(Expenses.updateRecurring(e, data.frequencyNum, data.frequencyUnit))) Bad(MiscError("Error updating recurring expense"))
+              else Good(e.id.get)
+            }
           }
         }
       }
@@ -75,15 +78,6 @@ trait ExpenseRoutes {
     }
   }
 
-  private def timer[R](name: String)(block: => R): R = {
-    val t0 = System.nanoTime()
-    val result = block    // call-by-name
-    val t1 = System.nanoTime()
-    val ms = (t1 - t0) / 1000000
-    println(s"Elapsed time in '$name': $ms ms")
-    result
-  }
-
   private def doGetExpenses(fromDate: String, toDate: String): Result[JValue] = {
     DB.db.readOnly { implicit s =>
       for (from <- timer("parseFrom")(parseDate(fromDate));
@@ -110,18 +104,28 @@ trait ExpenseRoutes {
     }
   }
 
+  private def expenseLogger(name: String)(req: HttpRequest, res: HttpResponse, delta: Long): Unit = {
+    println(s"Time elapsed in $name: $delta")
+  }
+
   val editExpense = path(IntNumber) { id =>
     val expenseId = Id[Expense](id)
     post {
-      withAuth { u =>
-        val ej = extractJson[ExpenseData]
-        ej { data =>
-          handleError(data flatMap { d =>
-            if (expenseId != d.id.get) Bad(MiscError("Inconsistent expense ids in edit request"))
-            else if (d.ownerId != u.id.get && !u.admin) Bad(AuthError("You are not authorized to edit this expense"))
-            else Good(d)
-          } flatMap doEditExpense(expenseId)) { res =>
-            complete(res)
+      time(expenseLogger("post")) {
+        withAuth { u =>
+          time(expenseLogger("withAuth")) {
+            val ej = time(expenseLogger("ej")) & extractJson[ExpenseData]
+            ej { data =>
+              (time(expenseLogger("handleError")) & handleError(data flatMap { d =>
+                  timer("first part of handleError") {
+                    if (expenseId != d.id.get) Bad(MiscError("Inconsistent expense ids in edit request"))
+                    else if (d.ownerId != u.id.get && !u.admin) Bad(AuthError("You are not authorized to edit this expense"))
+                    else Good(d)
+                  }
+                } flatMap doEditExpense(expenseId))) { res =>
+                  complete(res)
+                }
+            }
           }
         }
       }
